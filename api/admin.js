@@ -3,12 +3,7 @@
 // Basic認証で保護。ADMIN_USER / ADMIN_PASS を環境変数で設定してください。
 // CSVエクスポート: https://rata.jp/api/admin?export=csv
 
-import { createClient } from '@libsql/client';
-
-const db = createClient({
-  url: process.env.TURSO_DATABASE_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+import { tursoExecute, rowsToObjects } from './_turso.js';
 
 function checkAuth(req) {
   const header = req.headers.authorization || '';
@@ -36,7 +31,14 @@ export default async function handler(req, res) {
     return res.status(401).send('認証が必要です。');
   }
 
-  const { rows } = await db.execute('SELECT * FROM rata_pre_registrations ORDER BY created_at DESC');
+  let rows;
+  try {
+    const result = await tursoExecute('SELECT * FROM rata_pre_registrations ORDER BY created_at DESC');
+    rows = rowsToObjects(result);
+  } catch (e) {
+    console.error('Turso select error:', e);
+    return res.status(500).send('データベースの取得に失敗しました。');
+  }
 
   if (req.query.export === 'csv') {
     const csv = toCSV(rows);

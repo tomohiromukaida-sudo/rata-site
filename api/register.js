@@ -1,5 +1,5 @@
 // RATAパス 先行案内登録 受信エンドポイント (Vercel Serverless Function)
-// DB: Turso (libSQL)  /  Mail: Resend
+// DB: Turso (libSQL HTTP API — SDKは既知の不具合を避けるため使用しない)  /  Mail: Resend
 //
 // 必要な環境変数 (Vercelの Project Settings > Environment Variables で設定):
 //   TURSO_DATABASE_URL   - Tursoデータベース接続URL (libsql://...)
@@ -8,13 +8,8 @@
 //   MAIL_FROM              - 送信元アドレス (例: RATA Japan <info@rata.jp>)
 //   MAIL_BCC                - 管理者への通知先 (任意)
 
-import { createClient } from '@libsql/client';
 import { Resend } from 'resend';
-
-const db = createClient({
-  url: process.env.TURSO_DATABASE_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
+import { tursoExecute } from './_turso.js';
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
@@ -52,12 +47,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    await db.execute({
-      sql: `INSERT INTO rata_pre_registrations
-            (email, name, country, language, visit_intent, interests, price_expectation,
-             companions, reason, utm_source, utm_campaign, consent, ip_address)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [
+    await tursoExecute(
+      `INSERT INTO rata_pre_registrations
+       (email, name, country, language, visit_intent, interests, price_expectation,
+        companions, reason, utm_source, utm_campaign, consent, ip_address)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
         email,
         name || null,
         country || null,
@@ -71,8 +66,8 @@ export default async function handler(req, res) {
         utmCampaign || null,
         consent ? 1 : 0,
         req.headers['x-forwarded-for'] || req.socket?.remoteAddress || null,
-      ],
-    });
+      ]
+    );
   } catch (e) {
     console.error('Turso insert error:', e);
     return res.status(500).json({ success: false, message: '登録処理中にエラーが発生しました。時間をおいて再度お試しください。' });
