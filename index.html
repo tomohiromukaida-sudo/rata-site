@@ -36,10 +36,15 @@
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
   .nav-logo img { width: 26px; height: 26px; }
   .nav-logo-text { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #fff; }
-  .lang-toggle {
-    font-size: 10px; color: var(--ocean-light); letter-spacing: 1px;
-    background: rgba(46,155,181,0.15); border: 0.5px solid rgba(126,205,224,0.3);
-    border-radius: 20px; padding: 4px 10px; text-decoration: none;
+  .lang-switch { display: flex; gap: 4px; }
+  .lang-switch a {
+    font-size: 9px; color: var(--text-muted); letter-spacing: 0.5px;
+    padding: 4px 9px; border-radius: 20px; text-decoration: none;
+    border: 0.5px solid rgba(126,205,224,0.2);
+  }
+  .lang-switch a.active {
+    color: var(--ocean-light); background: rgba(46,155,181,0.2);
+    border-color: rgba(126,205,224,0.4);
   }
   .badge-pre {
     display: inline-block; font-size: 9px; letter-spacing: 1.5px;
@@ -157,7 +162,11 @@
     <img src="images/logo-white.png" alt="RATA logo">
     <span class="nav-logo-text">RATA</span>
   </a>
-  <a href="/en/" class="lang-toggle">EN / 中文</a>
+  <div class="lang-switch">
+    <a href="/" class="active">日本語</a>
+    <a href="/en/">EN</a>
+    <a href="/zh-TW/">中文</a>
+  </div>
 </nav>
 
 <section class="hero">
