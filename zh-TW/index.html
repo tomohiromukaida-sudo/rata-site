@@ -111,7 +111,7 @@
   .photo-hero-label { position: absolute; bottom: 18px; left: 24px; right: 24px; }
   .photo-hero-label p { font-size: 9px; color: var(--ocean-light); letter-spacing: 2px; margin-bottom: 4px; }
   .photo-hero-label h3 { font-size: 20px; font-weight: 300; }
-  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 24px 0; }
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 24px 0; align-items: start; }
   .photo-card { border-radius: 10px; overflow: hidden; position: relative; }
   .photo-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
   .photo-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 10px 8px; background: linear-gradient(to top, rgba(6,24,32,0.9), transparent); }
@@ -233,7 +233,7 @@
       <img src="../images/ecosystem.jpg" alt="生態系的復原">
       <div class="photo-card-label"><p>ECOSYSTEM</p><span>生態系的復原</span></div>
     </div>
-    <div class="photo-card" style="background:#0C3347;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;height:120px;">
+    <div class="photo-card" style="background:#0C3347;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;min-height:120px;overflow:visible;">
       <p style="font-size:9px;color:var(--ocean-light);letter-spacing:1.5px;margin-bottom:6px;">ARTIST</p>
       <p style="font-size:11px;font-weight:500;margin-bottom:4px;">Jason deCaires Taylor</p>
       <p style="font-size:10px;color:var(--text-muted);line-height:1.5;">英國環境雕塑家，在世界各地海底設置再生型藝術的第一人。</p>
