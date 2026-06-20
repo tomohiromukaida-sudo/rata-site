@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You for Registering — RATA</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: #061820; color: #fff;
+    max-width: 430px; margin: 0 auto;
+    min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
+  }
+  .icon { font-size: 40px; margin-bottom: 20px; }
+  h1 { font-size: 22px; font-weight: 300; margin-bottom: 16px; line-height: 1.4; }
+  h1 strong { font-weight: 600; }
+  p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 28px; max-width: 320px; }
+  a.btn {
+    display: inline-block; background: #2E9BB5; color: #fff; font-size: 12px;
+    letter-spacing: 1px; padding: 13px 28px; border-radius: 100px; text-decoration: none;
+    text-transform: uppercase;
+  }
+</style>
+<script>
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
+  }
+</script>
+</head>
+<body>
+  <div class="icon">🌊</div>
+  <h1>Thank you for <strong>registering</strong></h1>
+  <p>
+    We've received your RATA Pass pre-registration. A confirmation email is on its way — please check your inbox.<br><br>
+    We'll give you priority updates as the official launch approaches.
+  </p>
+  <a href="/en/" class="btn">Back to Home</a>
+</body>
+</html>
