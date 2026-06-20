@@ -4,7 +4,6 @@
   "private": true,
   "description": "RATAパス先行案内登録サイト — Vercel + Turso + Resend",
   "dependencies": {
-    "@libsql/client": "^0.6.0",
     "resend": "^3.2.0"
   }
 }
