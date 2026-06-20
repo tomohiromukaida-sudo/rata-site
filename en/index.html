@@ -46,6 +46,29 @@
     color: var(--ocean-light); background: rgba(46,155,181,0.2);
     border-color: rgba(126,205,224,0.4);
   }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .menu-btn {
+    width: 30px; height: 24px; display: flex; flex-direction: column;
+    justify-content: space-between; cursor: pointer; background: none; border: none; padding: 0;
+  }
+  .menu-btn span { display: block; height: 1.5px; background: #fff; border-radius: 2px; }
+  .menu-panel {
+    position: fixed; top: 0; right: 0; height: 100%; width: 240px; max-width: 70%;
+    background: var(--ocean-deep); z-index: 200; padding: 80px 24px 24px;
+    transform: translateX(100%); transition: transform 0.25s ease;
+    border-left: 0.5px solid rgba(126,205,224,0.2);
+    display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+  }
+  .menu-panel.open { transform: translateX(0); }
+  .menu-panel a {
+    display: block; font-size: 14px; color: #fff; text-decoration: none;
+    padding: 14px 0; border-bottom: 0.5px solid rgba(126,205,224,0.12);
+  }
+  .menu-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 199;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .menu-overlay.open { opacity: 1; pointer-events: auto; }
   .badge-pre {
     display: inline-block; font-size: 9px; letter-spacing: 1.5px;
     color: var(--ocean-light); border: 0.5px solid rgba(126,205,224,0.4);
@@ -146,7 +169,7 @@
   .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
   .footer-logo img { width: 22px; height: 22px; }
   .footer-text { font-size: 10px; color: var(--text-hint); line-height: 1.8; }
-  .footer-links { display: flex; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
   .footer-links a { font-size: 10px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.5px; }
 
   .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -162,11 +185,24 @@
     <img src="../images/logo-white.png" alt="RATA logo">
     <span class="nav-logo-text">RATA</span>
   </a>
-  <div class="lang-switch">
-    <a href="/">日本語</a>
-    <a href="/en/" class="active">EN</a>
-    <a href="/zh-TW/">中文</a>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <a href="/">日本語</a>
+      <a href="/en/" class="active">EN</a>
+      <a href="/zh-TW/">中文</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu-panel" id="menuPanel" aria-label="Site menu">
+  <a href="/about.html">About RATA</a>
+  <a href="/public-notice.html">Public Notice</a>
+  <a href="/en/privacy.html">Privacy Policy</a>
+  <a href="mailto:info@rata.jp">Contact</a>
 </nav>
 
 <section class="hero">
@@ -377,6 +413,8 @@
     © 2025 RATA Japan. All Rights Reserved.
   </p>
   <div class="footer-links">
+    <a href="/about.html">About RATA</a>
+    <a href="/public-notice.html">Public Notice</a>
     <a href="/en/privacy.html">Privacy Policy</a>
     <a href="mailto:info@rata.jp">Contact</a>
     <a href="/">日本語</a>
@@ -385,6 +423,21 @@
 </footer>
 
 <script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuPanel = document.getElementById('menuPanel');
+  const menuOverlay = document.getElementById('menuOverlay');
+  function closeMenu() {
+    menuPanel.classList.remove('open');
+    menuOverlay.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', () => {
+    const isOpen = menuPanel.classList.toggle('open');
+    menuOverlay.classList.toggle('open', isOpen);
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+  menuOverlay.addEventListener('click', closeMenu);
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
