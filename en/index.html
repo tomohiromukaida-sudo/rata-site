@@ -105,18 +105,22 @@
   .section-body { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
   .divider { height: 1px; margin: 0 24px; background: linear-gradient(to right, rgba(46,155,181,0.4), transparent); }
 
-  .photo-hero { height: 260px; overflow: hidden; position: relative; }
-  .photo-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
-  .photo-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--ocean-dark) 100%); }
-  .photo-hero-label { position: absolute; bottom: 18px; left: 24px; right: 24px; }
-  .photo-hero-label p { font-size: 9px; color: var(--ocean-light); letter-spacing: 2px; margin-bottom: 4px; }
-  .photo-hero-label h3 { font-size: 20px; font-weight: 300; }
-  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 24px 0; align-items: start; }
-  .photo-card { border-radius: 10px; overflow: hidden; position: relative; }
-  .photo-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
-  .photo-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 10px 8px; background: linear-gradient(to top, rgba(6,24,32,0.9), transparent); }
-  .photo-card-label p { font-size: 8px; color: var(--ocean-light); letter-spacing: 1.5px; margin-bottom: 2px; }
-  .photo-card-label span { font-size: 10px; color: rgba(255,255,255,0.85); }
+  .gallery-block { padding: 0 24px; margin-bottom: 32px; }
+  .gallery-eyebrow { font-size: 9px; letter-spacing: 2px; color: var(--ocean-light); text-transform: uppercase; margin-bottom: 6px; }
+  .gallery-title { font-size: 18px; font-weight: 300; margin-bottom: 14px; }
+  .carousel {
+    display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+  .carousel img {
+    width: 80%; max-width: 320px; height: 200px; object-fit: cover;
+    border-radius: 12px; flex-shrink: 0; scroll-snap-align: start; display: block;
+  }
+  .artist-card {
+    background: rgba(255,255,255,0.04); border: 0.5px solid rgba(126,205,224,0.18);
+    border-radius: 12px; padding: 16px 18px;
+  }
 
   .pass-card {
     margin-top: 24px; background: linear-gradient(135deg, rgba(46,155,181,0.2), rgba(12,51,71,0.8));
@@ -223,28 +227,36 @@
 <div class="divider"></div>
 
 <section class="ocean-gaia" id="ocean-gaia" style="padding-top:0;">
-  <div class="photo-hero">
-    <img src="../images/snorkel.jpg" alt="Snorkeling at Ocean Gaia">
-    <div class="photo-hero-overlay"></div>
-    <div class="photo-hero-label"><p>OCEAN GAIA</p><h3>An encounter with underwater sculpture</h3></div>
-  </div>
-  <div class="photo-grid fade-in">
-    <div class="photo-card">
-      <img src="../images/ecosystem.jpg" alt="Ecosystem recovery">
-      <div class="photo-card-label"><p>ECOSYSTEM</p><span>Ecosystem recovery</span></div>
+  <div class="gallery-block fade-in" style="padding-top:32px;">
+    <p class="gallery-eyebrow">OCEAN GAIA</p>
+    <h3 class="gallery-title">An encounter with underwater sculpture</h3>
+    <div class="carousel">
+      <img src="../images/snorkel.jpg" alt="Snorkeling at Ocean Gaia">
     </div>
-    <div class="photo-card" style="background:#0C3347;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;min-height:120px;overflow:visible;">
-      <p style="font-size:9px;color:var(--ocean-light);letter-spacing:1.5px;margin-bottom:6px;">ARTIST</p>
-      <p style="font-size:11px;font-weight:500;margin-bottom:4px;">Jason deCaires Taylor</p>
-      <p style="font-size:10px;color:var(--text-muted);line-height:1.5;">British environmental sculptor and pioneer of regenerative underwater art installed across the world's oceans.</p>
-      <a href="https://underwatersculpture.com/" target="_blank" rel="noopener" style="font-size:9px;color:var(--ocean-light);letter-spacing:0.5px;margin-top:6px;display:inline-block;">Visit official site →</a>
-      <p style="font-size:9px;color:var(--text-hint);line-height:1.5;margin-top:8px;">
+  </div>
+
+  <div class="gallery-block fade-in">
+    <p class="gallery-eyebrow">ECOSYSTEM</p>
+    <h3 class="gallery-title">Ecosystem recovery</h3>
+    <div class="carousel">
+      <img src="../images/ecosystem.jpg" alt="Ecosystem recovery">
+    </div>
+  </div>
+
+  <div class="gallery-block fade-in">
+    <p class="gallery-eyebrow">ARTIST</p>
+    <h3 class="gallery-title">Jason deCaires Taylor</h3>
+    <div class="artist-card">
+      <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;">British environmental sculptor and pioneer of regenerative underwater art installed across the world's oceans.</p>
+      <a href="https://underwatersculpture.com/" target="_blank" rel="noopener" style="font-size:10px;color:var(--ocean-light);letter-spacing:0.5px;margin-top:8px;display:inline-block;">Visit official site →</a>
+      <p style="font-size:10px;color:var(--text-hint);line-height:1.5;margin-top:10px;">
         The pregnant figure in the sculpture was modeled on actress Kiko Mizuhara.
         <a href="https://www.tokunoshima-town.org/kikakuka/shigotosangyo/documents/syoukai.pdf" target="_blank" rel="noopener" style="color:var(--ocean-light);text-decoration:underline;">(Source: Tokunoshima Town)</a>
       </p>
     </div>
   </div>
-  <div style="padding:28px 24px 0;" class="fade-in">
+
+  <div style="padding:8px 24px 0;" class="fade-in">
     <p class="section-eyebrow" style="margin-top:0;">Experience</p>
     <h2 class="section-title">Visit the sculpture<br><strong>sunk in Tokunoshima's sea</strong></h2>
     <p class="section-body">Encounter "Ocean Gaia" by diving or snorkeling, and witness coral settling and the ecosystem recovering in real time — an experience found only in the seas of Tokunoshima, a UNESCO World Natural Heritage Site.</p>
