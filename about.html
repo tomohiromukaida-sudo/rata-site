@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About RATA — 一般社団法人リジェネラティブアートツーリズム協会</title>
+<meta name="description" content="一般社団法人リジェネラティブアートツーリズム協会（RATA）の団体概要。環境再生型アートを軸に、観光・自然環境・地域文化・教育・地方創生をつなぐ活動について。">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ocean-deep: #0C3347;
+    --ocean-mid: #2E9BB5;
+    --ocean-light: #7ECDE0;
+    --ocean-dark: #061820;
+    --text-muted: rgba(255,255,255,0.65);
+    --text-hint: rgba(255,255,255,0.4);
+    --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--ocean-dark);
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px; z-index: 100;
+    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(6,24,32,0.96);
+    border-bottom: 0.5px solid rgba(126,205,224,0.12);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { width: 26px; height: 26px; }
+  .nav-logo-text { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #fff; }
+  .lang-switch { display: flex; gap: 4px; }
+  .lang-switch a {
+    font-size: 9px; color: var(--text-muted); letter-spacing: 0.5px;
+    padding: 4px 9px; border-radius: 20px; text-decoration: none;
+    border: 0.5px solid rgba(126,205,224,0.2);
+  }
+  main { padding-top: 76px; }
+  .page-hero { padding: 0 24px 36px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 3px; color: var(--ocean-light); text-transform: uppercase; margin-bottom: 12px; }
+  .page-title { font-size: 30px; font-weight: 300; line-height: 1.25; margin-bottom: 14px; }
+  .page-title strong { font-weight: 600; }
+  .page-sub { font-size: 14px; color: var(--ocean-light); line-height: 1.6; margin-bottom: 4px; }
+  section { padding: 40px 24px; }
+  .section-title { font-size: 22px; font-weight: 300; line-height: 1.3; margin-bottom: 16px; }
+  .section-title strong { font-weight: 600; }
+  .section-body { font-size: 14px; color: var(--text-muted); line-height: 1.85; }
+  .section-body + .section-body { margin-top: 14px; }
+  .divider { height: 1px; margin: 0 24px; background: linear-gradient(to right, rgba(46,155,181,0.4), transparent); }
+
+  .card-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .card {
+    background: rgba(255,255,255,0.04); border: 0.5px solid rgba(126,205,224,0.18);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .card p { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+
+  .approach-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 20px; }
+  .approach-tag {
+    font-size: 11px; color: var(--ocean-light); letter-spacing: 0.5px;
+    border: 0.5px solid rgba(126,205,224,0.35); background: rgba(46,155,181,0.12);
+    padding: 6px 14px; border-radius: 20px;
+  }
+
+  .org-table {
+    margin-top: 20px; border: 0.5px solid rgba(126,205,224,0.18); border-radius: 12px; overflow: hidden;
+  }
+  .org-row {
+    display: flex; padding: 14px 18px; gap: 12px;
+    border-bottom: 0.5px solid rgba(126,205,224,0.1);
+  }
+  .org-row:last-child { border-bottom: none; }
+  .org-row dt { font-size: 11px; color: var(--ocean-light); flex: 0 0 92px; line-height: 1.6; }
+  .org-row dd { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+
+  footer { padding: 28px 24px 48px; border-top: 0.5px solid rgba(126,205,224,0.1); }
+  .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .footer-logo img { width: 22px; height: 22px; }
+  .footer-text { font-size: 10px; color: var(--text-hint); line-height: 1.8; }
+  .footer-links { display: flex; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+  .footer-links a { font-size: 10px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.5px; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--ocean-mid); color: #fff;
+    font-size: 12px; font-weight: 500; letter-spacing: 1px; padding: 14px 24px; border-radius: 100px;
+    text-decoration: none; border: none; cursor: pointer; text-transform: uppercase; width: 100%;
+    justify-content: center; margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="images/logo-white.png" alt="RATA logo">
+    <span class="nav-logo-text">RATA</span>
+  </a>
+  <div class="lang-switch">
+    <a href="/">日本語</a>
+    <a href="/en/">EN</a>
+    <a href="/zh-TW/">中文</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <p class="section-eyebrow">About RATA</p>
+    <h1 class="page-title">About <strong>RATA</strong></h1>
+    <p class="page-sub">アートを通じて、自然・地域・旅の関係を再生する。</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-body">
+      一般社団法人リジェネラティブアートツーリズム協会（RATA）は、環境再生型アートを軸に、観光、自然環境、地域文化、教育、地方創生をつなぐために設立された団体です。
+    </p>
+    <p class="section-body">
+      私たちは、旅を単なる消費体験ではなく、訪れるほどに自然や地域がより良い状態へ向かう「リジェネラティブな体験」へと進化させることを目指しています。
+    </p>
+    <p class="section-body">
+      徳之島での水中彫刻プロジェクトやRATAパスは、その実践のひとつです。アート作品を鑑賞するだけでなく、海の再生、生物多様性、地域の学び、次世代の観光モデルへとつなげていきます。
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-eyebrow">Mission</p>
+    <h2 class="section-title">旅を、<strong>再生の力に変える。</strong></h2>
+    <p class="section-body">
+      RATAは、観光によって自然や地域が消費されるのではなく、訪れる人の体験が環境再生や地域価値の向上につながる仕組みをつくります。
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-eyebrow">What We Do</p>
+    <h2 class="section-title"><strong>活動内容</strong></h2>
+    <div class="card-list">
+      <div class="card"><p>環境再生型アートの企画・導入支援</p></div>
+      <div class="card"><p>国内外アーティストとの連携</p></div>
+      <div class="card"><p>自治体・地域事業者とのプロジェクト形成</p></div>
+      <div class="card"><p>RATAパスなどのデジタル体験設計</p></div>
+      <div class="card"><p>環境教育・アート教育・STEM教育プログラム</p></div>
+      <div class="card"><p>地方創生・観光モデルの設計</p></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-eyebrow">Our Approach</p>
+    <h2 class="section-title"><strong>5つの視点</strong></h2>
+    <div class="approach-tags">
+      <span class="approach-tag">Art</span>
+      <span class="approach-tag">Nature</span>
+      <span class="approach-tag">Tourism</span>
+      <span class="approach-tag">Education</span>
+      <span class="approach-tag">Community</span>
+    </div>
+    <p class="section-body">
+      アートを入口に、自然環境への関心を高め、地域への滞在・学び・再訪につなげる。RATAは、作品単体ではなく、地域に継続的な価値を生む仕組みとしてプロジェクトを設計します。
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-eyebrow">Organization Profile</p>
+    <h2 class="section-title"><strong>団体概要</strong></h2>
+    <dl class="org-table">
+      <div class="org-row"><dt>団体名</dt><dd>一般社団法人リジェネラティブアートツーリズム協会</dd></div>
+      <div class="org-row"><dt>英語名</dt><dd>Regenerative Art Tourism Association</dd></div>
+      <div class="org-row"><dt>略称</dt><dd>RATA</dd></div>
+      <div class="org-row"><dt>所在地</dt><dd>東京都足立区</dd></div>
+      <div class="org-row"><dt>代表理事</dt><dd>向田 朋弘</dd></div>
+      <div class="org-row"><dt>事業領域</dt><dd>環境再生型アート、地方創生、観光、教育、アーティスト連携</dd></div>
+      <div class="org-row"><dt>主な活動</dt><dd>環境再生型アートの導入支援、自治体連携、RATAパス、教育・体験プログラム</dd></div>
+    </dl>
+  </section>
+
+  <div class="divider"></div>
+
+  <section style="text-align:center;">
+    <p class="section-eyebrow" style="text-align:left;">RATA Pass</p>
+    <h2 class="section-title" style="text-align:left;">私たちの活動を、<br><strong>RATAパスで体験する。</strong></h2>
+    <p class="section-body" style="text-align:left; margin-bottom: 4px;">
+      RATAパスは現在、正式な提供開始に向けて先行案内登録を受け付けています。
+    </p>
+    <a href="/#register" class="btn-primary">RATAパス先行案内に登録する</a>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-logo">
+    <img src="images/logo-white.png" alt="RATA logo">
+    <span style="font-size:11px;letter-spacing:2px;font-weight:500;">RATA</span>
+  </div>
+  <p class="footer-text">
+    一般社団法人 リジェネラティブアートツーリズム協会<br>
+    Regenerative Art Tourism Association<br>
+    © 2025 RATA Japan. All Rights Reserved.
+  </p>
+  <div class="footer-links">
+    <a href="/about.html">About RATA</a>
+    <a href="/public-notice.html">公告情報</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="mailto:info@rata.jp">お問い合わせ</a>
+    <a href="/en/">English</a>
+  </div>
+</footer>
+
+</body>
+</html>

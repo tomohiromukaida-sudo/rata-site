@@ -46,6 +46,28 @@
     color: var(--ocean-light); background: rgba(46,155,181,0.2);
     border-color: rgba(126,205,224,0.4);
   }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .menu-btn {
+    width: 30px; height: 24px; display: flex; flex-direction: column;
+    justify-content: space-between; cursor: pointer; background: none; border: none; padding: 0;
+  }
+  .menu-btn span { display: block; height: 1.5px; background: #fff; border-radius: 2px; }
+  .menu-panel {
+    position: fixed; top: 0; right: 0; height: 100%; width: 240px; max-width: 70%;
+    background: var(--ocean-deep); z-index: 200; padding: 80px 24px 24px;
+    transform: translateX(100%); transition: transform 0.25s ease;
+    border-left: 0.5px solid rgba(126,205,224,0.2);
+  }
+  .menu-panel.open { transform: translateX(0); }
+  .menu-panel a {
+    display: block; font-size: 14px; color: #fff; text-decoration: none;
+    padding: 14px 0; border-bottom: 0.5px solid rgba(126,205,224,0.12);
+  }
+  .menu-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 199;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .menu-overlay.open { opacity: 1; pointer-events: auto; }
   .badge-pre {
     display: inline-block; font-size: 9px; letter-spacing: 1.5px;
     color: var(--ocean-light); border: 0.5px solid rgba(126,205,224,0.4);
@@ -158,17 +180,31 @@
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="/" class="nav-logo">
     <img src="images/logo-white.png" alt="RATA logo">
     <span class="nav-logo-text">RATA</span>
   </a>
-  <div class="lang-switch">
-    <a href="/" class="active">日本語</a>
-    <a href="/en/">EN</a>
-    <a href="/zh-TW/">中文</a>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <a href="/" class="active">日本語</a>
+      <a href="/en/">EN</a>
+      <a href="/zh-TW/">中文</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu-panel" id="menuPanel" aria-label="サイトメニュー">
+  <a href="/about.html">About RATA</a>
+  <a href="/public-notice.html">公告情報</a>
+  <a href="/privacy.html">プライバシーポリシー</a>
+  <a href="mailto:info@rata.jp">お問い合わせ</a>
+</nav>
+
+<main>
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -365,6 +401,7 @@
     <p class="faq-a">ご登録いただいた情報は、RATAパスに関する案内配信および需要分析のみに利用します。詳細は<a href="/privacy.html" style="color:var(--ocean-light);">プライバシーポリシー</a>をご確認ください。</p>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="footer-logo">
@@ -377,6 +414,8 @@
     © 2025 RATA Japan. All Rights Reserved.
   </p>
   <div class="footer-links">
+    <a href="/about.html">About RATA</a>
+    <a href="/public-notice.html">公告情報</a>
     <a href="/privacy.html">プライバシーポリシー</a>
     <a href="mailto:info@rata.jp">お問い合わせ</a>
     <a href="/en/">English</a>
@@ -385,6 +424,21 @@
 </footer>
 
 <script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuPanel = document.getElementById('menuPanel');
+  const menuOverlay = document.getElementById('menuOverlay');
+  function closeMenu() {
+    menuPanel.classList.remove('open');
+    menuOverlay.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', () => {
+    const isOpen = menuPanel.classList.toggle('open');
+    menuOverlay.classList.toggle('open', isOpen);
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+  menuOverlay.addEventListener('click', closeMenu);
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
