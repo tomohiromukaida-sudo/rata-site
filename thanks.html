@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご登録ありがとうございます — RATA</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: #061820; color: #fff;
+    max-width: 430px; margin: 0 auto;
+    min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
+  }
+  .icon { font-size: 40px; margin-bottom: 20px; }
+  h1 { font-size: 22px; font-weight: 300; margin-bottom: 16px; line-height: 1.4; }
+  h1 strong { font-weight: 600; }
+  p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 28px; max-width: 320px; }
+  a.btn {
+    display: inline-block; background: #2E9BB5; color: #fff; font-size: 12px;
+    letter-spacing: 1px; padding: 13px 28px; border-radius: 100px; text-decoration: none;
+    text-transform: uppercase;
+  }
+</style>
+<script>
+  /* GA4 conversion event fires here — see implementation notes */
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
+  }
+</script>
+</head>
+<body>
+  <div class="icon">🌊</div>
+  <h1>ご登録<strong>ありがとうございます</strong></h1>
+  <p>
+    RATAパス先行案内へのご登録を受け付けました。確認メールをお送りしていますので、ご確認ください。<br><br>
+    正式な提供開始が近づきましたら、優先的にご案内いたします。
+  </p>
+  <a href="/" class="btn">トップページへ戻る</a>
+</body>
+</html>

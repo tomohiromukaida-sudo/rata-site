@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RATAパス 先行案内登録 — Regenerative Art Tourism Association</title>
+<meta name="description" content="徳之島Ocean Gaia。日本初の環境再生型水中彫刻を訪れ、海の再生を見守るデジタルパス「RATAパス」。先行案内登録受付中。">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ocean-deep: #0C3347;
+    --ocean-mid: #2E9BB5;
+    --ocean-light: #7ECDE0;
+    --ocean-dark: #061820;
+    --text-muted: rgba(255,255,255,0.65);
+    --text-hint: rgba(255,255,255,0.4);
+    --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--ocean-dark);
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px; z-index: 100;
+    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(6,24,32,0.95), transparent);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { width: 26px; height: 26px; }
+  .nav-logo-text { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #fff; }
+  .lang-toggle {
+    font-size: 10px; color: var(--ocean-light); letter-spacing: 1px;
+    background: rgba(46,155,181,0.15); border: 0.5px solid rgba(126,205,224,0.3);
+    border-radius: 20px; padding: 4px 10px; text-decoration: none;
+  }
+  .badge-pre {
+    display: inline-block; font-size: 9px; letter-spacing: 1.5px;
+    color: var(--ocean-light); border: 0.5px solid rgba(126,205,224,0.4);
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .hero {
+    position: relative; min-height: 100svh; height: 100svh;
+    overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/hero.jpg');
+    background-size: cover; background-position: center 25%;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(6,24,32,0.25) 0%, rgba(6,24,32,0.15) 30%, rgba(6,24,32,0.55) 60%, rgba(6,24,32,0.97) 100%);
+  }
+  .hero-content { position: relative; z-index: 1; padding: 0 24px 44px; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 2.5px; color: var(--ocean-light); margin-bottom: 10px; text-transform: uppercase; }
+  .hero-title { font-size: 34px; font-weight: 300; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .hero-title strong { font-weight: 600; }
+  .hero-sub { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 26px; max-width: 320px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--ocean-mid); color: #fff;
+    font-size: 12px; font-weight: 500; letter-spacing: 1px; padding: 14px 24px; border-radius: 100px;
+    text-decoration: none; border: none; cursor: pointer; text-transform: uppercase; width: 100%;
+    justify-content: center;
+  }
+  section { padding: 56px 24px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 3px; color: var(--ocean-light); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-size: 24px; font-weight: 300; line-height: 1.3; margin-bottom: 16px; }
+  .section-title strong { font-weight: 600; }
+  .section-body { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+  .divider { height: 1px; margin: 0 24px; background: linear-gradient(to right, rgba(46,155,181,0.4), transparent); }
+
+  .photo-hero { height: 260px; overflow: hidden; position: relative; }
+  .photo-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
+  .photo-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--ocean-dark) 100%); }
+  .photo-hero-label { position: absolute; bottom: 18px; left: 24px; right: 24px; }
+  .photo-hero-label p { font-size: 9px; color: var(--ocean-light); letter-spacing: 2px; margin-bottom: 4px; }
+  .photo-hero-label h3 { font-size: 20px; font-weight: 300; }
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 24px 0; }
+  .photo-card { border-radius: 10px; overflow: hidden; position: relative; }
+  .photo-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
+  .photo-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 10px 8px; background: linear-gradient(to top, rgba(6,24,32,0.9), transparent); }
+  .photo-card-label p { font-size: 8px; color: var(--ocean-light); letter-spacing: 1.5px; margin-bottom: 2px; }
+  .photo-card-label span { font-size: 10px; color: rgba(255,255,255,0.85); }
+
+  .pass-card {
+    margin-top: 24px; background: linear-gradient(135deg, rgba(46,155,181,0.2), rgba(12,51,71,0.8));
+    border: 0.5px solid rgba(126,205,224,0.25); border-radius: 16px; padding: 22px;
+  }
+  .pass-badge { font-size: 8px; letter-spacing: 2px; color: var(--ocean-light); border: 0.5px solid rgba(126,205,224,0.4); padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 14px; }
+  .pass-title { font-size: 18px; font-weight: 300; margin-bottom: 8px; }
+  .pass-sub { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+  .pass-features { display: flex; flex-direction: column; gap: 12px; }
+  .pass-feature { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 12px; border-bottom: 0.5px solid rgba(126,205,224,0.1); }
+  .pass-feature:last-child { border-bottom: none; padding-bottom: 0; }
+  .pass-feature-icon { width: 28px; height: 28px; flex-shrink: 0; background: rgba(46,155,181,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .pass-feature-text p:first-child { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+  .pass-feature-text p:last-child { font-size: 11px; color: var(--text-muted); }
+
+  /* FORM */
+  .form-section { background: linear-gradient(to bottom, var(--ocean-dark), var(--ocean-deep)); }
+  .form-card { margin-top: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 11px; color: var(--ocean-light); letter-spacing: 0.5px; margin-bottom: 6px; }
+  .form-label .req { color: #E89; font-size: 9px; margin-left: 4px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(126,205,224,0.25);
+    border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 13px; font-family: inherit;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-select { appearance: none; -webkit-appearance: none; }
+  .radio-group, .check-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-option, .check-option {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.04); border: 0.5px solid rgba(126,205,224,0.15);
+    border-radius: 8px; padding: 11px 14px; cursor: pointer;
+  }
+  .radio-option input, .check-option input { accent-color: var(--ocean-mid); width: 16px; height: 16px; }
+  .radio-option span, .check-option span { font-size: 12px; color: rgba(255,255,255,0.85); }
+  .consent-row { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0; }
+  .consent-row input { margin-top: 2px; accent-color: var(--ocean-mid); width: 16px; height: 16px; flex-shrink: 0; }
+  .consent-row label { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+  .consent-row a { color: var(--ocean-light); text-decoration: underline; }
+  .form-note { font-size: 10px; color: var(--text-hint); margin-top: 16px; line-height: 1.7; text-align: center; }
+
+  /* FAQ */
+  .faq-item { border-bottom: 0.5px solid rgba(126,205,224,0.12); padding: 16px 0; }
+  .faq-item:first-child { border-top: 0.5px solid rgba(126,205,224,0.12); }
+  .faq-q { font-size: 13px; font-weight: 500; margin-bottom: 8px; display: flex; gap: 8px; }
+  .faq-q span { color: var(--ocean-light); flex-shrink: 0; }
+  .faq-a { font-size: 12px; color: var(--text-muted); line-height: 1.7; padding-left: 18px; }
+
+  footer { padding: 28px 24px 48px; border-top: 0.5px solid rgba(126,205,224,0.1); }
+  .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .footer-logo img { width: 22px; height: 22px; }
+  .footer-text { font-size: 10px; color: var(--text-hint); line-height: 1.8; }
+  .footer-links { display: flex; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+  .footer-links a { font-size: 10px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.5px; }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  .error-msg { color: #F09595; font-size: 11px; margin-top: 4px; display: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="images/logo-white.png" alt="RATA logo">
+    <span class="nav-logo-text">RATA</span>
+  </a>
+  <a href="#" class="lang-toggle">EN / 中文</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="badge-pre">先行案内登録 受付中</span>
+    <p class="hero-eyebrow">Tokunoshima · UNESCO World Natural Heritage</p>
+    <h1 class="hero-title"><strong>アートで、</strong><br>海が再生する。</h1>
+    <p class="hero-sub">
+      Jason deCaires Taylor が設置した日本初の環境再生型水中彫刻「Ocean Gaia」。
+      体験後も海の変化を見守るデジタルパス「RATAパス」を構想中です。
+    </p>
+    <a href="#register" class="btn-primary">RATAパス先行案内に登録する</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="ocean-gaia" id="ocean-gaia" style="padding-top:0;">
+  <div class="photo-hero">
+    <img src="images/snorkel.jpg" alt="Ocean Gaia スノーケル体験">
+    <div class="photo-hero-overlay"></div>
+    <div class="photo-hero-label"><p>OCEAN GAIA</p><h3>水中彫刻との邂逅</h3></div>
+  </div>
+  <div class="photo-grid fade-in">
+    <div class="photo-card">
+      <img src="images/ecosystem.jpg" alt="生態系の回復">
+      <div class="photo-card-label"><p>ECOSYSTEM</p><span>生態系の回復</span></div>
+    </div>
+    <div class="photo-card" style="background:#0C3347;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;height:120px;">
+      <p style="font-size:9px;color:var(--ocean-light);letter-spacing:1.5px;margin-bottom:6px;">ARTIST</p>
+      <p style="font-size:11px;font-weight:500;margin-bottom:4px;">Jason deCaires Taylor</p>
+      <p style="font-size:10px;color:var(--text-muted);line-height:1.5;">英国の環境彫刻家。世界各地の海底に再生型アートを設置する第一人者。</p>
+    </div>
+  </div>
+  <div style="padding:28px 24px 0;" class="fade-in">
+    <p class="section-eyebrow" style="margin-top:0;">Experience</p>
+    <h2 class="section-title">徳之島の海に<br><strong>沈む彫刻を訪れる</strong></h2>
+    <p class="section-body">ダイビングまたはシュノーケルで「Ocean Gaia」に出会い、珊瑚が着床し生態系が回復していくプロセスを体感する旅。世界自然遺産・徳之島の海でしか出会えない体験です。</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="art-pass fade-in" id="art-pass">
+  <p class="section-eyebrow">RATA Art Pass（構想中）</p>
+  <h2 class="section-title">体験後も、<br><strong>海の再生を見守る。</strong></h2>
+  <p class="section-body">
+    旅が終わっても続く関係をつくりたい——RATAパスは、あなたの体験を「環境再生への参加記録」として可視化するデジタルパスです。現在、正式な提供に向けて構想・需要検証を行っています。
+  </p>
+  <div class="pass-card">
+    <span class="pass-badge">構想中 · 先行登録受付</span>
+    <p class="pass-title">パスでできること（予定）</p>
+    <p class="pass-sub">先行登録いただいた方には、正式リリース時に優先案内・先行価格でご案内します。</p>
+    <div class="pass-features">
+      <div class="pass-feature">
+        <div class="pass-feature-icon">🌊</div>
+        <div class="pass-feature-text"><p>珊瑚の成長記録</p><p>Ocean Gaia海域の環境アップデートを定期的に閲覧</p></div>
+      </div>
+      <div class="pass-feature">
+        <div class="pass-feature-icon">📍</div>
+        <div class="pass-feature-text"><p>体験の参加証明</p><p>環境再生への参加が記録として残る</p></div>
+      </div>
+      <div class="pass-feature">
+        <div class="pass-feature-icon">🎟</div>
+        <div class="pass-feature-text"><p>優先案内・先行価格</p><p>正式提供開始時に先行登録者へ優先的にご案内</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REGISTRATION FORM -->
+<section class="form-section" id="register">
+  <p class="section-eyebrow">Pre-Registration</p>
+  <h2 class="section-title">RATAパス<br><strong>先行案内登録</strong></h2>
+  <p class="section-body">
+    正式な提供開始に先立ち、構想に関心をお持ちの方の先行登録を受け付けています。ご登録いただいた方には、正式リリース時に優先案内・先行価格をお届けします。
+  </p>
+
+  <form class="form-card" id="regForm" action="/api/register" method="POST">
+    <div class="form-group">
+      <label class="form-label">メールアドレス<span class="req">必須</span></label>
+      <input type="email" name="email" class="form-input" placeholder="you@example.com" required>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">氏名<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <input type="text" name="name" class="form-input" placeholder="山田 太郎">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">居住国・地域<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <select name="country" class="form-select">
+        <option value="">選択してください</option>
+        <option value="JP">日本</option>
+        <option value="TW">台湾</option>
+        <option value="SG">シンガポール</option>
+        <option value="HK">香港</option>
+        <option value="other">その他</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">希望言語<span class="req">必須</span></label>
+      <select name="language" class="form-select" required>
+        <option value="">選択してください</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="zh-TW">繁体中文</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">徳之島への訪問意向<span class="req">必須</span></label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="visit_intent" value="asap" required><span>すぐに行きたい</span></label>
+        <label class="radio-option"><input type="radio" name="visit_intent" value="within_1y"><span>1年以内に行きたい</span></label>
+        <label class="radio-option"><input type="radio" name="visit_intent" value="someday"><span>いつか行きたい</span></label>
+        <label class="radio-option"><input type="radio" name="visit_intent" value="pass_only"><span>デジタルパスだけ興味がある</span></label>
+        <label class="radio-option"><input type="radio" name="visit_intent" value="unsure"><span>まだわからない</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">興味がある内容（複数選択可）<span class="req">必須</span></label>
+      <div class="check-group">
+        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>Ocean Gaia体験</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>環境再生への参加</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="digital_pass"><span>限定デジタルパス</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>珊瑚の成長記録</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>教育コンテンツ</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="local"><span>地域貢献</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>アーティスト背景</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">想定購入価格<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <select name="price_expectation" class="form-select">
+        <option value="">選択してください</option>
+        <option value="free">無料なら欲しい</option>
+        <option value="1000">1,000円程度</option>
+        <option value="3000">3,000円程度</option>
+        <option value="5000">5,000円程度</option>
+        <option value="10000+">10,000円以上でも内容次第</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">同伴人数<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <input type="number" name="companions" class="form-input" placeholder="例：2" min="0">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">興味を持った理由<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <textarea name="reason" class="form-textarea" rows="3" placeholder="ご自由にお書きください"></textarea>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" name="consent" required>
+      <label>
+        <a href="/privacy.html" target="_blank">プライバシーポリシー</a>に同意の上、登録情報の取得・案内配信に同意します。
+      </label>
+    </div>
+
+    <button type="submit" class="btn-primary">先行案内に登録する</button>
+    <p class="form-note">
+      ※本登録は正式な購入・予約ではありません。先行案内登録であり、現時点でRATAパスの提供時期・価格は確定していません。
+    </p>
+  </form>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="faq fade-in">
+  <p class="section-eyebrow">FAQ</p>
+  <h2 class="section-title"><strong>よくあるご質問</strong></h2>
+  <div class="faq-item">
+    <p class="faq-q"><span>Q.</span>RATAパスはいつ正式に提供されますか？</p>
+    <p class="faq-a">現在、需要検証のための先行登録を実施しています。一定数の登録が確認できた段階で、販売開始の判断を行う予定です。</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q"><span>Q.</span>先行登録すると料金が発生しますか？</p>
+    <p class="faq-a">いいえ。先行登録は無料です。登録時点でのお支払いは発生しません。</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q"><span>Q.</span>ダイビング経験がなくても体験できますか？</p>
+    <p class="faq-a">シュノーケルでも「Ocean Gaia」をご覧いただけます。経験者向けのダイビングプランも予定しています。</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q"><span>Q.</span>個人情報はどのように扱われますか？</p>
+    <p class="faq-a">ご登録いただいた情報は、RATAパスに関する案内配信および需要分析のみに利用します。詳細は<a href="/privacy.html" style="color:var(--ocean-light);">プライバシーポリシー</a>をご確認ください。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <img src="images/logo-white.png" alt="RATA logo">
+    <span style="font-size:11px;letter-spacing:2px;font-weight:500;">RATA</span>
+  </div>
+  <p class="footer-text">
+    一般社団法人 リジェネラティブアートツーリズム協会<br>
+    Regenerative Art Tourism Association<br>
+    © 2025 RATA Japan. All Rights Reserved.
+  </p>
+  <div class="footer-links">
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="mailto:info@rata.jp">お問い合わせ</a>
+    <a href="#">English</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navEl.style.background = 'rgba(6,24,32,0.96)';
+    } else {
+      navEl.style.background = 'linear-gradient(to bottom, rgba(6,24,32,0.95), transparent)';
+    }
+  });
+
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const payload = {};
+    for (const [key, value] of formData.entries()) {
+      if (key === 'interests[]') {
+        payload.interests = payload.interests || [];
+        payload.interests.push(value);
+      } else if (key === 'consent') {
+        payload.consent = true;
+      } else {
+        payload[key] = value;
+      }
+    }
+    const params = new URLSearchParams(window.location.search);
+    payload.utm_source = params.get('utm_source') || '';
+    payload.utm_campaign = params.get('utm_campaign') || '';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then(r => r.json())
+      .then(res => {
+        if (res.success) {
+          window.location.href = '/thanks.html';
+        } else {
+          alert(res.message || '送信に失敗しました。もう一度お試しください。');
+        }
+      })
+      .catch(() => {
+        alert('送信に失敗しました。通信環境をご確認の上、もう一度お試しください。');
+      });
+  });
+</script>
+</body>
+</html>
