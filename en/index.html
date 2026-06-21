@@ -141,6 +141,31 @@
   .pass-feature-text p:first-child { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
   .pass-feature-text p:last-child { font-size: 11px; color: var(--text-muted); }
 
+  .sample-pass {
+    margin-top: 16px; background: linear-gradient(135deg, rgba(46,155,181,0.22), rgba(6,24,32,0.96));
+    border: 0.5px solid rgba(126,205,224,0.35); border-radius: 18px; padding: 22px;
+    position: relative; overflow: hidden;
+  }
+  .sample-pass::before {
+    content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(126,205,224,0.25), transparent 70%);
+  }
+  .sample-pass-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; position: relative; }
+  .sample-pass-logo { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--ocean-light); }
+  .sample-pass-tag { font-size: 8px; letter-spacing: 1px; color: var(--text-hint); border: 0.5px solid rgba(126,205,224,0.3); padding: 3px 9px; border-radius: 20px; text-transform: uppercase; }
+  .sample-pass-fields { display: flex; flex-direction: column; gap: 10px; padding-bottom: 16px; border-bottom: 0.5px solid rgba(126,205,224,0.25); margin-bottom: 16px; position: relative; }
+  .sample-pass-field { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .sample-pass-field dt { font-size: 9px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; flex-shrink: 0; }
+  .sample-pass-field dd { font-size: 12px; color: #fff; font-weight: 500; text-align: right; }
+  .sample-pass-field.id dd { font-family: 'Courier New', monospace; font-size: 15px; letter-spacing: 1px; color: var(--ocean-light); }
+  .sample-pass-footer { position: relative; }
+  .sample-pass-footer-label { font-size: 9px; letter-spacing: 1px; color: var(--ocean-light); margin-bottom: 4px; }
+  .sample-pass-footer-value { font-size: 14px; font-weight: 300; }
+
+  .benefit-list { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .benefit-list li { font-size: 13px; color: rgba(255,255,255,0.85); padding-left: 22px; position: relative; line-height: 1.5; }
+  .benefit-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--ocean-light); font-size: 12px; font-weight: 700; }
+
   /* FORM */
   .form-section { background: linear-gradient(to bottom, var(--ocean-dark), var(--ocean-deep)); }
   .form-card { margin-top: 24px; }
@@ -291,30 +316,60 @@
 <div class="divider"></div>
 
 <section class="art-pass fade-in" id="art-pass">
-  <p class="section-eyebrow">RATA Art Pass (in development)</p>
+  <p class="section-eyebrow">RATA PASS (in development)</p>
   <h2 class="section-title">After your visit,<br><strong>keep watching the ocean regenerate.</strong></h2>
   <p class="section-body">
     We want to build a relationship that outlasts the trip — the RATA Pass is a digital pass that turns your experience into a visible record of participation in environmental regeneration. We are currently validating demand ahead of an official launch.
   </p>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">RATA PASS SAMPLE</p>
+  <div class="sample-pass">
+    <div class="sample-pass-header">
+      <span class="sample-pass-logo">RATA PASS</span>
+      <span class="sample-pass-tag">Sample</span>
+    </div>
+    <dl class="sample-pass-fields">
+      <div class="sample-pass-field id"><dt>Pass ID</dt><dd>RATA-TKN-000001</dd></div>
+      <div class="sample-pass-field"><dt>Status</dt><dd>Founding Supporter</dd></div>
+      <div class="sample-pass-field"><dt>Area</dt><dd>Tokunoshima Ocean Gaia</dd></div>
+      <div class="sample-pass-field"><dt>Issued by</dt><dd>Regenerative Art Tourism Association</dd></div>
+    </dl>
+    <div class="sample-pass-footer">
+      <p class="sample-pass-footer-label">The ocean you watch over</p>
+      <p class="sample-pass-footer-value">Ocean Gaia / Off Inokawa, Tokunoshima</p>
+    </div>
+  </div>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">What you can do with RATA PASS</p>
   <div class="pass-card">
-    <span class="pass-badge">In development · Pre-registration open</span>
-    <p class="pass-title">What the pass will offer</p>
-    <p class="pass-sub">Pre-registered users will receive priority access and early pricing when the pass officially launches.</p>
     <div class="pass-features">
       <div class="pass-feature">
-        <div class="pass-feature-icon">🌊</div>
-        <div class="pass-feature-text"><p>Coral growth records</p><p>Regular updates on the Ocean Gaia reef environment</p></div>
+        <div class="pass-feature-icon">🌱</div>
+        <div class="pass-feature-text"><p>Receive Ocean Gaia's growth records</p><p>Regular updates on coral settlement, ocean changes, and marine life observations.</p></div>
       </div>
       <div class="pass-feature">
-        <div class="pass-feature-icon">📍</div>
-        <div class="pass-feature-text"><p>Proof of participation</p><p>Your contribution to environmental regeneration, recorded</p></div>
+        <div class="pass-feature-icon">🪪</div>
+        <div class="pass-feature-text"><p>Hold a digital proof of participation</p><p>A dedicated RATA PASS ID issued as proof you joined Ocean Gaia's regeneration story in Tokunoshima.</p></div>
+      </div>
+      <div class="pass-feature">
+        <div class="pass-feature-icon">📷</div>
+        <div class="pass-feature-text"><p>View exclusive updates</p><p>Reports, photos, and behind-the-scenes looks at production and conservation, before they're made public.</p></div>
       </div>
       <div class="pass-feature">
         <div class="pass-feature-icon">🎟</div>
-        <div class="pass-feature-text"><p>Priority access & early pricing</p><p>Pre-registered users get priority when we officially launch</p></div>
+        <div class="pass-feature-text"><p>Priority access to experiences in Tokunoshima</p><p>Priority invitations to local tours, environmental education, and artist-related programs.</p></div>
       </div>
     </div>
   </div>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">What pre-registered users will receive</p>
+  <ul class="benefit-list">
+    <li>Priority access at official launch</li>
+    <li>A RATA PASS ID exclusive to pre-registered users</li>
+    <li>Ocean Gaia's first monitoring report</li>
+    <li>Priority access to Tokunoshima tours and experiences</li>
+    <li>Recognition as a Founding Supporter</li>
+  </ul>
 </section>
 
 <div class="divider"></div>

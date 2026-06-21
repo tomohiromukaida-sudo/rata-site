@@ -141,6 +141,31 @@
   .pass-feature-text p:first-child { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
   .pass-feature-text p:last-child { font-size: 11px; color: var(--text-muted); }
 
+  .sample-pass {
+    margin-top: 16px; background: linear-gradient(135deg, rgba(46,155,181,0.22), rgba(6,24,32,0.96));
+    border: 0.5px solid rgba(126,205,224,0.35); border-radius: 18px; padding: 22px;
+    position: relative; overflow: hidden;
+  }
+  .sample-pass::before {
+    content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(126,205,224,0.25), transparent 70%);
+  }
+  .sample-pass-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; position: relative; }
+  .sample-pass-logo { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--ocean-light); }
+  .sample-pass-tag { font-size: 8px; letter-spacing: 1px; color: var(--text-hint); border: 0.5px solid rgba(126,205,224,0.3); padding: 3px 9px; border-radius: 20px; text-transform: uppercase; }
+  .sample-pass-fields { display: flex; flex-direction: column; gap: 10px; padding-bottom: 16px; border-bottom: 0.5px solid rgba(126,205,224,0.25); margin-bottom: 16px; position: relative; }
+  .sample-pass-field { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .sample-pass-field dt { font-size: 9px; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; flex-shrink: 0; }
+  .sample-pass-field dd { font-size: 12px; color: #fff; font-weight: 500; text-align: right; }
+  .sample-pass-field.id dd { font-family: 'Courier New', monospace; font-size: 15px; letter-spacing: 1px; color: var(--ocean-light); }
+  .sample-pass-footer { position: relative; }
+  .sample-pass-footer-label { font-size: 9px; letter-spacing: 1px; color: var(--ocean-light); margin-bottom: 4px; }
+  .sample-pass-footer-value { font-size: 14px; font-weight: 300; }
+
+  .benefit-list { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .benefit-list li { font-size: 13px; color: rgba(255,255,255,0.85); padding-left: 22px; position: relative; line-height: 1.5; }
+  .benefit-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--ocean-light); font-size: 12px; font-weight: 700; }
+
   /* FORM */
   .form-section { background: linear-gradient(to bottom, var(--ocean-dark), var(--ocean-deep)); }
   .form-card { margin-top: 24px; }
@@ -291,30 +316,60 @@
 <div class="divider"></div>
 
 <section class="art-pass fade-in" id="art-pass">
-  <p class="section-eyebrow">RATA Art Pass（構思中）</p>
+  <p class="section-eyebrow">RATA PASS（構思中）</p>
   <h2 class="section-title">體驗結束後，<br><strong>持續守護海洋的再生。</strong></h2>
   <p class="section-body">
     我們想建立一段旅程結束後仍能延續的關係——RATA Pass是一張數位通行證，將您的體驗轉化為「參與環境再生」的可視化記錄。目前我們正針對正式推出進行構思與需求驗證。
   </p>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">RATA PASS SAMPLE</p>
+  <div class="sample-pass">
+    <div class="sample-pass-header">
+      <span class="sample-pass-logo">RATA PASS</span>
+      <span class="sample-pass-tag">Sample</span>
+    </div>
+    <dl class="sample-pass-fields">
+      <div class="sample-pass-field id"><dt>Pass ID</dt><dd>RATA-TKN-000001</dd></div>
+      <div class="sample-pass-field"><dt>Status</dt><dd>Founding Supporter</dd></div>
+      <div class="sample-pass-field"><dt>Area</dt><dd>Tokunoshima Ocean Gaia</dd></div>
+      <div class="sample-pass-field"><dt>Issued by</dt><dd>Regenerative Art Tourism Association</dd></div>
+    </dl>
+    <div class="sample-pass-footer">
+      <p class="sample-pass-footer-label">您守護的海洋</p>
+      <p class="sample-pass-footer-value">Ocean Gaia / 德之島 井之川沖</p>
+    </div>
+  </div>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">RATA PASS能做什麼</p>
   <div class="pass-card">
-    <span class="pass-badge">構思中 · 先行登記受理中</span>
-    <p class="pass-title">通行證的功能（預定）</p>
-    <p class="pass-sub">先行登記者將在正式推出時獲得優先通知與優惠價格。</p>
     <div class="pass-features">
       <div class="pass-feature">
-        <div class="pass-feature-icon">🌊</div>
-        <div class="pass-feature-text"><p>珊瑚成長記錄</p><p>定期查看Ocean Gaia海域的環境更新</p></div>
+        <div class="pass-feature-icon">🌱</div>
+        <div class="pass-feature-text"><p>接收Ocean Gaia的成長記錄</p><p>定期為您送上珊瑚著床、海洋變化與生物觀察記錄。</p></div>
       </div>
       <div class="pass-feature">
-        <div class="pass-feature-icon">📍</div>
-        <div class="pass-feature-text"><p>體驗參與證明</p><p>您對環境再生的參與將被記錄下來</p></div>
+        <div class="pass-feature-icon">🪪</div>
+        <div class="pass-feature-text"><p>持有數位參與證明</p><p>作為參與德之島Ocean Gaia再生故事的證明，發行專屬的RATA PASS ID。</p></div>
+      </div>
+      <div class="pass-feature">
+        <div class="pass-feature-icon">📷</div>
+        <div class="pass-feature-text"><p>瀏覽限定更新內容</p><p>在公開前，為您送上報告、照片，以及製作與保育的幕後花絮。</p></div>
       </div>
       <div class="pass-feature">
         <div class="pass-feature-icon">🎟</div>
-        <div class="pass-feature-text"><p>優先通知與優惠價格</p><p>正式推出時，先行登記者將獲得優先通知</p></div>
+        <div class="pass-feature-text"><p>優先獲邀參加德之島限定體驗</p><p>優先為您介紹當地導覽、環境學習與藝術家相關企劃。</p></div>
       </div>
     </div>
   </div>
+
+  <p class="gallery-eyebrow" style="margin-top:28px;">先行登記者將獲得</p>
+  <ul class="benefit-list">
+    <li>正式推出時的優先通知</li>
+    <li>先行登記者專屬的RATA PASS ID</li>
+    <li>Ocean Gaia的首次監測報告</li>
+    <li>德之島導覽／體驗活動的優先通知</li>
+    <li>以Founding Supporter身份獲得限定展示</li>
+  </ul>
 </section>
 
 <div class="divider"></div>
