@@ -28,12 +28,6 @@
     text-transform: uppercase;
   }
 </style>
-<script>
-  /* GA4 conversion event fires here — see implementation notes */
-  if (typeof gtag === 'function') {
-    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
-  }
-</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CVPHRXDS44"></script>
 <script>
@@ -42,6 +36,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = 'REPLACE_WITH_PIXEL_ID';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=REPLACE_WITH_PIXEL_ID&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
   <div class="icon"><img src="images/thanks-hero.jpg" alt="Ocean Gaia 水中彫刻"></div>
@@ -51,5 +67,15 @@
     正式な提供開始が近づきましたら、優先的にご案内いたします。
   </p>
   <a href="/" class="btn">トップページへ戻る</a>
+<script src="js/tracking.js"></script>
+<script>
+  // GA4コンバージョンイベント。tracking.js読み込み後（gtag定義後）に発火する。
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
+  }
+  if (window.RataTracking) {
+    window.RataTracking.pushEvent('thank_you_view', {});
+  }
+</script>
 </body>
 </html>

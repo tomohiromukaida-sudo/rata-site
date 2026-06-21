@@ -50,6 +50,7 @@ export default async function handler(req, res) {
   const total = rows.length;
   const byLang = {};
   for (const r of rows) byLang[r.language] = (byLang[r.language] || 0) + 1;
+  const highIntentCount = rows.filter((r) => Number(r.high_intent) === 1).length;
 
   const tableRows = rows
     .slice(0, 200)
@@ -59,6 +60,8 @@ export default async function handler(req, res) {
       <td>${r.created_at}</td><td>${r.email}</td><td>${r.name || ''}</td>
       <td>${r.country || ''}</td><td>${r.language}</td><td>${r.visit_intent}</td>
       <td>${r.interests || ''}</td><td>${r.price_expectation || ''}</td><td>${r.companions ?? ''}</td>
+      <td>${r.utm_source || ''}</td><td>${r.utm_campaign || ''}</td><td>${r.ad_region || ''}</td>
+      <td>${Number(r.high_intent) === 1 ? '★' : ''} ${r.high_intent_score ?? 0}</td>
     </tr>`
     )
     .join('');
@@ -86,10 +89,11 @@ export default async function handler(req, res) {
   <a class="export" href="?export=csv">CSVダウンロード</a>
   <div class="stats">
     <div class="stat-card"><div class="n">${total}</div><div class="l">総登録数</div></div>
+    <div class="stat-card"><div class="n">${highIntentCount}</div><div class="l">高意向リード</div></div>
     ${statCards}
   </div>
   <table>
-    <tr><th>登録日時</th><th>メール</th><th>氏名</th><th>国</th><th>言語</th><th>訪問意向</th><th>興味</th><th>価格期待</th><th>同伴</th></tr>
+    <tr><th>登録日時</th><th>メール</th><th>氏名</th><th>国</th><th>言語</th><th>訪問意向</th><th>興味</th><th>価格期待</th><th>同伴</th><th>utm_source</th><th>utm_campaign</th><th>広告地域</th><th>高意向</th></tr>
     ${tableRows}
   </table>
 </body></html>`;

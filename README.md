@@ -97,3 +97,89 @@ Vercel Project → Settings → Domains → `rata.jp` を追加。
 npm install
 npx vercel dev
 ```
+
+## 広告計測（需要検証 Phase1）
+
+### 広告計測の概要
+
+UTMパラメータ付きで流入したユーザーの情報をlocalStorageに保存し、フォーム送信時に登録データと一緒にTursoへ保存します。GA4 / dataLayer（GTM想定） / Meta Pixelの3系統に同じイベントを送信します。実装は [js/tracking.js](./js/tracking.js)。
+
+### UTMパラメータ一覧
+
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- `utm_content`
+- `utm_term`
+
+命名規則は [docs/ad_plan/rata_pass_ad_plan_300k.md](./docs/ad_plan/rata_pass_ad_plan_300k.md) を参照。
+
+### フォーム送信時に保存される項目
+
+UTM 5項目に加えて以下を保存します（[js/tracking.js](./js/tracking.js) の `getFormPayloadFields()`、[api/register.js](./api/register.js) で受信・保存）。
+
+- `first_landing_page`（初回ランディングページ）
+- `referrer`
+- `ad_region`（utm_campaignの命名規則から推測）
+- `ad_concept`（utm_content相当）
+- `ad_language`
+- `browser_language`
+- `device_type`（mobile/tablet/desktop）
+- `screen_width` / `screen_height`
+- `user_agent`
+- `submitted_at`
+- `experience_interest`（体験したい内容、複数選択）
+- `high_intent_score` / `high_intent`（サーバー側で計算。スコア定義は [docs/ad_plan/rata_pass_ad_plan_300k.md](./docs/ad_plan/rata_pass_ad_plan_300k.md) を参照）
+
+### GA4/GTMイベント一覧
+
+`window.dataLayer.push()` および `gtag('event', ...)` で送信されるイベント（[js/tracking.js](./js/tracking.js)）:
+
+- `page_view`
+- `cta_click`
+- `form_start`
+- `form_submit`
+- `form_error`
+- `thank_you_view`
+- `outbound_click`
+- `language_switch`
+
+※GTMコンテナを使う場合は、`dataLayer`に積まれたイベントをGTM側でトリガー設定する。GTMコンテナIDの実際の設定は人間が行う。
+
+### Meta Pixelイベント一覧
+
+各HTMLの`<head>`にMeta Pixelスニペットを挿入済み（`META_PIXEL_ID`は `REPLACE_WITH_PIXEL_ID` のプレースホルダーのまま無効化されている）。配信開始前に実際のPixel IDに差し替えること。
+
+- `PageView`（標準イベント、Pixel読み込み時）
+- 上記GA4/GTMイベントと同名のカスタムイベント（`fbq('trackCustom', eventName, ...)`）
+
+### 広告入稿CSVの場所
+
+[docs/ad_plan/ad_import_phase1.csv](./docs/ad_plan/ad_import_phase1.csv)
+
+広告コピー一覧: [docs/ad_plan/ad_copy_phase1.md](./docs/ad_plan/ad_copy_phase1.md)
+
+予算配分・KPI・運用方針: [docs/ad_plan/rata_pass_ad_plan_300k.md](./docs/ad_plan/rata_pass_ad_plan_300k.md)
+
+### 週次レポートテンプレートの場所
+
+[docs/ad_plan/weekly_report_template.md](./docs/ad_plan/weekly_report_template.md)
+
+### 配信開始前チェックリスト
+
+- [ ] GA4が発火している
+- [ ] GTMが発火している
+- [ ] Meta Pixelが発火している（`META_PIXEL_ID`を実際のIDに差し替え済み）
+- [ ] `cta_click`が計測される
+- [ ] `form_start`が計測される
+- [ ] `form_submit`が計測される
+- [ ] UTM付きURLで流入した場合、フォーム送信時にUTMが保存される
+- [ ] `thank_you_view`が計測される
+- [ ] プライバシーポリシーに計測ツール利用が記載されている
+- [ ] 広告コピーを人間が確認済み
+- [ ] 配信予算を人間が確認済み
+- [ ] 広告アカウントの支払い設定が完了している
+
+### 注意
+
+**広告アカウントへの直接入稿、配信ON、予算変更はClaude/Codexでは実施しない。** 上記CSV・コピー・プランをもとに、人間が広告アカウント上で入稿・配信操作を行う。

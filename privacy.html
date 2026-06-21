@@ -26,6 +26,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = 'REPLACE_WITH_PIXEL_ID';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=REPLACE_WITH_PIXEL_ID&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
   <h1>プライバシーポリシー</h1>
@@ -55,6 +77,9 @@
   <h2>4. 委託先</h2>
   <p>本サイトの運営にあたり、フォーム送信・メール配信・データ保管のために外部サービス（サーバー事業者等）を利用することがあります。委託先には適切な管理を求めます。</p>
 
+  <h2>4-2. アクセス解析・計測ツールについて</h2>
+  <p>本サイトでは、利用状況の把握や広告効果の検証のため、Google アナリティクス（GA4）、Google タグマネージャー、Meta Pixel等のアクセス解析・計測ツールを利用しています。これらのツールはCookie等を利用して、ページの閲覧状況や広告経由での訪問情報（UTMパラメータ等）を収集します。収集した情報は、統計的な分析および広告配信の効果検証の目的でのみ利用し、個人を特定する目的では利用しません。</p>
+
   <h2>5. 保管期間</h2>
   <p>個人情報は、利用目的の達成に必要な期間保管し、登録者からの削除依頼があった場合は速やかに対応します。</p>
 
@@ -69,5 +94,6 @@
   <p>本ポリシーは、必要に応じて変更されることがあります。変更後の内容は本サイトに掲載した時点で効力を持ちます。</p>
 
   <a href="/" class="back">← トップページへ戻る</a>
+<script src="js/tracking.js"></script>
 </body>
 </html>
