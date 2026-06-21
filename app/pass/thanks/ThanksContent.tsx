@@ -6,7 +6,7 @@ import styles from './page.module.css';
 
 export default function ThanksContent() {
   const searchParams = useSearchParams();
-  const passCode = searchParams.get('pass_code');
+  const passCode = searchParams.get('code');
 
   return (
     <main className={styles.main}>
@@ -28,7 +28,17 @@ export default function ThanksContent() {
         正式な提供開始が近づきましたら、優先的にご案内いたします。
       </p>
 
-      <Link href="/" className={styles.btn}>
+      {passCode && (
+        <Link
+          href={`/pass/${encodeURIComponent(passCode)}`}
+          className={styles.btn}
+          style={{ display: 'block', marginBottom: 12 }}
+        >
+          あなたのRATA PASSを見る
+        </Link>
+      )}
+
+      <Link href="/" className={styles.btn} style={{ display: 'block' }}>
         トップページへ戻る
       </Link>
     </main>

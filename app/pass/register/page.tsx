@@ -42,7 +42,7 @@ export default function PassRegisterPage() {
         return;
       }
 
-      router.push(`/pass/thanks?pass_code=${encodeURIComponent(json.pass_code)}`);
+      router.push(`/pass/thanks?code=${encodeURIComponent(json.pass_code)}`);
     } catch (err) {
       console.error(err);
       setError('登録処理中にエラーが発生しました。');

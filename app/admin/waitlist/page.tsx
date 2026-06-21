@@ -1,16 +1,16 @@
-import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
+import { getTursoClient } from '@/lib/turso';
 import styles from './page.module.css';
 
-// NOTE: This page has NO authentication yet. It is acceptable only because
-// the MVP is not linked from public navigation and the URL is not shared.
-// Before this goes to production, gate this route — e.g. middleware.ts
-// checking a Basic-Auth header or a Supabase-authenticated admin session —
-// and never deploy this page publicly accessible without that check.
+// NOTE: This page has NO authentication yet. It is gated only by the
+// ADMIN_ENABLED env var (set to anything other than "true" to hide it), and
+// is not linked from public navigation. Before this goes to production,
+// add real auth — e.g. middleware.ts checking a Basic-Auth header or a
+// session — and never deploy this page publicly reachable without it.
 
 export const dynamic = 'force-dynamic';
 
 type WaitlistRow = {
-  id: string;
+  id: number;
   pass_code: string;
   email: string;
   name: string | null;
@@ -22,32 +22,40 @@ type WaitlistRow = {
 };
 
 export default async function AdminWaitlistPage() {
-  let data: WaitlistRow[] | null = null;
-  let error: { message: string } | null = null;
-
-  try {
-    const result = await getSupabaseAdmin()
-      .from('waitlist')
-      .select('*')
-      .order('created_at', { ascending: false });
-    data = result.data as WaitlistRow[] | null;
-    error = result.error;
-  } catch (e) {
-    error = { message: e instanceof Error ? e.message : '不明なエラーが発生しました。' };
+  if (process.env.ADMIN_ENABLED !== 'true') {
+    return (
+      <div className={styles.wrap}>
+        <h1 className={styles.title}>RATA PASS Waitlist</h1>
+        <p className={styles.empty}>
+          このページは現在無効化されています（ADMIN_ENABLED=trueを設定すると表示されます）。
+        </p>
+      </div>
+    );
   }
 
-  const rows = data || [];
+  let rows: WaitlistRow[] = [];
+  let errorMessage: string | null = null;
+
+  try {
+    const db = getTursoClient();
+    const result = await db.execute(
+      'SELECT * FROM waitlist ORDER BY created_at DESC LIMIT 200'
+    );
+    rows = result.rows as unknown as WaitlistRow[];
+  } catch (e) {
+    errorMessage = e instanceof Error ? e.message : '不明なエラーが発生しました。';
+  }
 
   return (
     <div className={styles.wrap}>
       <h1 className={styles.title}>RATA PASS Waitlist</h1>
       <p className={styles.sub}>登録件数: {rows.length}件</p>
 
-      {error && <p className={styles.empty}>取得エラー: {error.message}</p>}
+      {errorMessage && <p className={styles.empty}>取得エラー: {errorMessage}</p>}
 
-      {!error && rows.length === 0 && <p className={styles.empty}>登録はまだありません。</p>}
+      {!errorMessage && rows.length === 0 && <p className={styles.empty}>登録はまだありません。</p>}
 
-      {!error && rows.length > 0 && (
+      {!errorMessage && rows.length > 0 && (
         <table className={styles.table}>
           <thead>
             <tr>
