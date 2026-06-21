@@ -122,6 +122,10 @@
     background: rgba(255,255,255,0.04); border: 0.5px solid rgba(126,205,224,0.18);
     border-radius: 12px; padding: 16px 18px;
   }
+  .timeline-list { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .timeline-list li { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.6; padding-left: 14px; position: relative; }
+  .timeline-list li::before { content: ''; position: absolute; left: 0; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--ocean-light); }
+  .timeline-list .t-date { color: var(--ocean-light); font-size: 10px; margin-right: 6px; }
 
   .pass-card {
     margin-top: 24px; background: linear-gradient(135deg, rgba(46,155,181,0.2), rgba(12,51,71,0.8));
@@ -248,9 +252,23 @@
     <p class="gallery-eyebrow">ARTIST</p>
     <h3 class="gallery-title">Jason deCaires Taylor</h3>
     <div class="artist-card">
-      <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;">British environmental sculptor and pioneer of regenerative underwater art installed across the world's oceans.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;">
+        A British environmental sculptor who sinks sculptures into the sea, letting them function as artificial reefs that support coral settlement and marine life. A pioneer in connecting art appreciation with ocean regeneration through installations around the world.
+      </p>
       <a href="https://underwatersculpture.com/" target="_blank" rel="noopener" style="font-size:10px;color:var(--ocean-light);letter-spacing:0.5px;margin-top:8px;display:inline-block;">Visit official site →</a>
-      <p style="font-size:10px;color:var(--text-hint);line-height:1.5;margin-top:10px;">
+
+      <p class="gallery-eyebrow" style="margin-top:16px;">Project Timeline</p>
+      <ul class="timeline-list">
+        <li><span class="t-date">Jun 2023</span>First meeting with Jason</li>
+        <li><span class="t-date">Feb 2024</span>Jason's first visit to Japan; concept gathering and location scouting on Tokunoshima</li>
+        <li><span class="t-date">Oct 2024</span>Design finalized — a pregnant figure motif; production begins on the ~20-ton sculpture, built in 12 pieces</li>
+        <li><span class="t-date">Mar 2025</span>Shipped from the UK to Kobe, a roughly two-month sea voyage</li>
+        <li><span class="t-date">Aug 2025</span>Cleared customs and arrived on Tokunoshima</li>
+        <li><span class="t-date">Oct 2025</span>Jason returns to the island for 19 days of final finishing</li>
+        <li><span class="t-date">Oct 14, 2025</span>Sunk into the sea off the Inokawa coast</li>
+      </ul>
+
+      <p style="font-size:10px;color:var(--text-hint);line-height:1.5;margin-top:14px;">
         The pregnant figure in the sculpture was modeled on actress Kiko Mizuhara.
         <a href="https://www.tokunoshima-town.org/kikakuka/shigotosangyo/documents/syoukai.pdf" target="_blank" rel="noopener" style="color:var(--ocean-light);text-decoration:underline;">(Source: Tokunoshima Town)</a>
       </p>

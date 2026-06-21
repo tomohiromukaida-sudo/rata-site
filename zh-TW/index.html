@@ -122,6 +122,10 @@
     background: rgba(255,255,255,0.04); border: 0.5px solid rgba(126,205,224,0.18);
     border-radius: 12px; padding: 16px 18px;
   }
+  .timeline-list { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .timeline-list li { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.6; padding-left: 14px; position: relative; }
+  .timeline-list li::before { content: ''; position: absolute; left: 0; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--ocean-light); }
+  .timeline-list .t-date { color: var(--ocean-light); font-size: 10px; margin-right: 6px; }
 
   .pass-card {
     margin-top: 24px; background: linear-gradient(135deg, rgba(46,155,181,0.2), rgba(12,51,71,0.8));
@@ -248,9 +252,23 @@
     <p class="gallery-eyebrow">ARTIST</p>
     <h3 class="gallery-title">Jason deCaires Taylor</h3>
     <div class="artist-card">
-      <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;">英國環境雕塑家，在世界各地海底設置再生型藝術的第一人。</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;">
+        英國出身的環境雕塑家，將雕塑沉入海中，使其化為珊瑚著床與魚類棲息的人工珊瑚礁。他在世界各地海域設置作品，致力於將藝術鑑賞與海洋環境再生連結在一起，是此領域的第一人。
+      </p>
       <a href="https://underwatersculpture.com/" target="_blank" rel="noopener" style="font-size:10px;color:var(--ocean-light);letter-spacing:0.5px;margin-top:8px;display:inline-block;">查看官方網站 →</a>
-      <p style="font-size:10px;color:var(--text-hint);line-height:1.5;margin-top:10px;">
+
+      <p class="gallery-eyebrow" style="margin-top:16px;">Project Timeline</p>
+      <ul class="timeline-list">
+        <li><span class="t-date">2023.6</span>與Jason首次會面</li>
+        <li><span class="t-date">2024.2</span>Jason首次造訪日本，在德之島收集構想並勘查地點</li>
+        <li><span class="t-date">2024.10</span>設計定案，以孕婦為主題，開始製作約20噸、分12個部件的雕塑</li>
+        <li><span class="t-date">2025.3</span>從英國運往神戶，海運歷時約2個月</li>
+        <li><span class="t-date">2025.8</span>完成通關手續，雕塑抵達德之島</li>
+        <li><span class="t-date">2025.10</span>Jason再次造訪，進行19天的最終修飾</li>
+        <li><span class="t-date">2025.10.14</span>沉設於井之川沖海域</li>
+      </ul>
+
+      <p style="font-size:10px;color:var(--text-hint);line-height:1.5;margin-top:14px;">
         作品中孕婦像的模特兒，是演員水原希子。
         <a href="https://www.tokunoshima-town.org/kikakuka/shigotosangyo/documents/syoukai.pdf" target="_blank" rel="noopener" style="color:var(--ocean-light);text-decoration:underline;">（資料來源：徳之島町）</a>
       </p>
