@@ -1,0 +1,68 @@
+.main {
+  padding-top: 76px;
+  padding-bottom: 56px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.title strong {
+  font-weight: 600;
+}
+
+.passCard {
+  margin: 8px 0 24px;
+  background: linear-gradient(135deg, rgba(46, 155, 181, 0.22), rgba(6, 24, 32, 0.96));
+  border: 0.5px solid rgba(126, 205, 224, 0.35);
+  border-radius: 18px;
+  padding: 22px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.passLabel {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--ocean-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.passCode {
+  font-family: 'Courier New', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  max-width: 320px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--ocean-mid);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 13px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
