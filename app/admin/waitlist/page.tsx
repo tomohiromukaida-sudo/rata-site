@@ -1,4 +1,4 @@
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 import styles from './page.module.css';
 
 // NOTE: This page has NO authentication yet. It is acceptable only because
@@ -22,12 +22,21 @@ type WaitlistRow = {
 };
 
 export default async function AdminWaitlistPage() {
-  const { data, error } = await supabaseAdmin
-    .from('waitlist')
-    .select('*')
-    .order('created_at', { ascending: false });
+  let data: WaitlistRow[] | null = null;
+  let error: { message: string } | null = null;
 
-  const rows = (data as WaitlistRow[]) || [];
+  try {
+    const result = await getSupabaseAdmin()
+      .from('waitlist')
+      .select('*')
+      .order('created_at', { ascending: false });
+    data = result.data as WaitlistRow[] | null;
+    error = result.error;
+  } catch (e) {
+    error = { message: e instanceof Error ? e.message : '不明なエラーが発生しました。' };
+  }
+
+  const rows = data || [];
 
   return (
     <div className={styles.wrap}>

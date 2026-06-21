@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 import { generatePassCode } from '@/lib/passId';
 
 const MAX_ATTEMPTS = 5;
@@ -10,6 +10,14 @@ export async function POST(req: NextRequest) {
 
   if (!email || typeof email !== 'string') {
     return NextResponse.json({ error: 'メールアドレスは必須です。' }, { status: 400 });
+  }
+
+  let supabaseAdmin;
+  try {
+    supabaseAdmin = getSupabaseAdmin();
+  } catch (e) {
+    console.error('Supabase admin client error:', e);
+    return NextResponse.json({ error: 'サーバー設定エラーが発生しました。' }, { status: 500 });
   }
 
   // pass_code has a unique constraint; retry with a fresh code on collision
