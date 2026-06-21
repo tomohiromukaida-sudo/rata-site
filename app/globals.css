@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ocean-deep: #0c3347;
+  --ocean-mid: #2e9bb5;
+  --ocean-light: #7ecde0;
+  --ocean-dark: #061820;
+  --text-muted: rgba(255, 255, 255, 0.65);
+  --text-hint: rgba(255, 255, 255, 0.4);
+  --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--ocean-dark);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+}

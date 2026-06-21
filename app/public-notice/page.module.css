@@ -1,0 +1,125 @@
+.main {
+  padding-top: 76px;
+}
+
+.pageHero {
+  padding: 0 24px 36px;
+}
+
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--ocean-light);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.pageTitle strong {
+  font-weight: 600;
+}
+
+.pageSub {
+  font-size: 14px;
+  color: var(--ocean-light);
+  line-height: 1.6;
+}
+
+.section {
+  padding: 40px 24px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.sectionTitle strong {
+  font-weight: 600;
+}
+
+.body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+
+.body + .body {
+  margin-top: 14px;
+}
+
+.divider {
+  height: 1px;
+  margin: 0 24px;
+  background: linear-gradient(to right, rgba(46, 155, 181, 0.4), transparent);
+}
+
+.orgTable {
+  margin-top: 20px;
+  border: 0.5px solid rgba(126, 205, 224, 0.18);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.orgRow {
+  display: flex;
+  padding: 14px 18px;
+  gap: 12px;
+  border-bottom: 0.5px solid rgba(126, 205, 224, 0.1);
+}
+
+.orgRow:last-child {
+  border-bottom: none;
+}
+
+.orgRow dt {
+  font-size: 11px;
+  color: var(--ocean-light);
+  flex: 0 0 92px;
+  line-height: 1.6;
+}
+
+.orgRow dd {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.noticeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(126, 205, 224, 0.18);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.noticeRow .meta {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.noticeRow .date {
+  font-size: 10px;
+  color: var(--ocean-light);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.noticeRow a {
+  font-size: 11px;
+  color: var(--ocean-light);
+  text-decoration: underline;
+  flex-shrink: 0;
+}

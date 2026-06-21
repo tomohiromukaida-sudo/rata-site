@@ -1,99 +1,71 @@
-# RATAパス 先行案内登録サイト
+# RATA — Regenerative Art Tourism Association
 
-Vercel + Turso + Resend + GitHub によるサーバーレス構成。
+RATA PASSの先行登録・パスID発行・将来的な決済/マイページ実装に対応するためのWebアプリ基盤（Phase 2 MVP）。
 
-## 構成
+## 技術スタック
 
-```
-index.html          メインLP（先行案内登録フォーム）
-thanks.html          登録完了ページ
-privacy.html         プライバシーポリシー
-images/              実画像（Ocean Gaia写真・ロゴ）
-api/register.js      フォーム受信 → Turso保存 → Resendで自動返信（Vercel Serverless Function）
-api/admin.js          登録一覧の確認・CSV出力（Basic認証）
-schema.sql            Turso用テーブル定義
-```
+- Next.js (App Router) + TypeScript
+- CSS Modules
+- Supabase（先行登録者データの保存）
+- Vercel（ホスティング）
 
-## セットアップ手順
+Stripe・Resendは本フェーズでは未実装です。
 
-### 1. Turso データベース作成
+## ページ構成
 
-```bash
-# Turso CLI インストール（初回のみ）
-curl -sSfL https://get.tur.so/install.sh | bash
+| パス | 内容 |
+|---|---|
+| `/` | トップページ |
+| `/about` | About RATA |
+| `/public-notice` | 公告情報 |
+| `/pass` | RATA PASS紹介 |
+| `/pass/register` | RATA PASS先行登録フォーム |
+| `/pass/thanks` | 登録完了（仮RATA PASS ID表示） |
+| `/admin/waitlist` | 登録者一覧（**認証なし。本番公開前に要対応**） |
 
-# ログイン
-turso auth login
+## セットアップ
 
-# データベース作成
-turso db create rata-pre-registrations
-
-# 接続情報取得
-turso db show rata-pre-registrations --url
-turso db tokens create rata-pre-registrations
-```
-
-上記の URL と トークンを後で Vercel の環境変数に設定します。
-
-### 2. スキーマ適用
-
-```bash
-turso db shell rata-pre-registrations < schema.sql
-```
-
-### 3. Resend アカウント作成（自動返信メール用）
-
-1. https://resend.com で無料登録
-2. ドメイン `rata.jp` を検証（DNSにTXT/CNAME追加）
-3. APIキーを発行
-
-### 4. GitHub リポジトリ作成
-
-```bash
-cd rata-site
-git init
-git add .
-git commit -m "Initial commit: RATAパス先行案内登録サイト"
-gh repo create rata-site --private --source=. --push
-```
-
-### 5. Vercel にデプロイ
-
-1. https://vercel.com にログイン（GitHubアカウントで連携）
-2. "Add New Project" → GitHubリポジトリ `rata-site` を選択
-3. Environment Variables に `.env.example` の内容を設定:
-   - `TURSO_DATABASE_URL`
-   - `TURSO_AUTH_TOKEN`
-   - `RESEND_API_KEY`
-   - `MAIL_FROM`
-   - `MAIL_BCC`
-   - `ADMIN_USER`
-   - `ADMIN_PASS`
-4. Deploy
-
-### 6. ドメイン接続（rata.jp）
-
-Vercel Project → Settings → Domains → `rata.jp` を追加。
-
-お名前.com 側でネームサーバーをVercelに向けるか、A/CNAMEレコードのみ変更：
-
-```
-お名前.com コントロールパネル → DNS設定
-タイプ: A     ホスト名: @     値: 76.76.21.21（Vercelが指示する値）
-タイプ: CNAME ホスト名: www   値: cname.vercel-dns.com
-```
-
-※ メールサーバー（mail1032.onamae.ne.jp）を使い続ける場合は、MXレコードはそのまま残してください。AレコードとCNAMEだけVercel向けに変更すればメールは影響を受けません。
-
-## 運用
-
-- **登録データ確認**: `https://rata.jp/api/admin`（Basic認証）
-- **CSVダウンロード**: `https://rata.jp/api/admin?export=csv`
-- **コード更新**: `git push` するとVercelが自動デプロイ
-
-## ローカル開発
+### 1. 依存関係のインストール
 
 ```bash
 npm install
-npx vercel dev
 ```
+
+### 2. Supabaseプロジェクトの準備
+
+1. [supabase.com](https://supabase.com) でプロジェクトを作成
+2. SQL Editorで `supabase/schema.sql` の内容を実行し、`waitlist` テーブルを作成
+3. プロジェクトの Settings → API から以下を取得
+   - Project URL
+   - `anon` `public` キー
+   - `service_role` キー（**サーバー側のみで使用。クライアントに公開しないこと**）
+
+### 3. 環境変数の設定
+
+`.env.example` を `.env.local` にコピーし、値を入力する。
+
+```bash
+cp .env.example .env.local
+```
+
+| 変数名 | 用途 |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabaseプロジェクトのエンドポイント |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | クライアント側で使用する公開キー |
+| `SUPABASE_SERVICE_ROLE_KEY` | サーバー側（API Route・管理ページ）専用。RLSをバイパスするため厳重に管理する |
+
+Vercelにデプロイする場合は、Project Settings → Environment Variables に同じ3つを設定する。
+
+### 4. ローカル起動
+
+```bash
+npm run dev
+```
+
+`http://localhost:3000` でトップページが表示されます。
+
+## 既知の制約・今後の対応事項
+
+- `/admin/waitlist` は認証なしで全件取得・表示する。本番公開前に、Basic認証またはSupabase Authによるログイン保護を `middleware.ts` 等で追加すること。
+- RATA PASS IDは `RATA-TKN-XXXXXX`（ランダム6文字）形式。連番管理が必要になった場合はテーブル設計の見直しが必要。
+- 決済（Stripe）・メール送信（Resend）は未実装。Phase 2の次段階で `/pass/checkout` 等を追加する想定。

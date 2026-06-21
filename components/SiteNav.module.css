@@ -1,0 +1,45 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 100;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6, 24, 32, 0.96);
+  border-bottom: 0.5px solid rgba(126, 205, 224, 0.12);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logoText {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.links {
+  display: flex;
+  gap: 14px;
+}
+
+.links a {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.links a.active {
+  color: var(--ocean-light);
+}
