@@ -219,7 +219,9 @@
     );
   }
 
-  // 言語切替計測 (.lang-switch 内のリンク)。
+  // 言語切替計測 (.lang-switch 内のリンク)。手動選択した言語はlocalStorageに保存し、
+  // ブラウザ言語による自動転送（各言語トップページの早期リダイレクトスクリプト）が
+  // 以後その選択を上書きしないようにする。
   function bindLanguageSwitchTracking() {
     document.addEventListener(
       'click',
@@ -230,6 +232,11 @@
           target_language: (el.textContent || '').trim(),
           target_href: el.getAttribute('href') || '',
         });
+        try {
+          window.localStorage.setItem('rata_lang_choice', '1');
+        } catch (e2) {
+          /* ignore */
+        }
       },
       true
     );
