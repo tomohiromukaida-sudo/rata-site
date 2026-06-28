@@ -5,6 +5,24 @@
 <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
 <!-- End cookieyes banner -->
 <meta charset="UTF-8">
+<script>
+  // ブラウザの言語設定に応じて早期リダイレクトする：中国語は繁体中文ページへ、それ以外（日本語を除く）は英語ページへ。
+  // 広告UTM付き流入や、手動で言語を選択済みの場合はリダイレクトしない。
+  (function () {
+    try {
+      if (location.search.indexOf('utm_source=') !== -1) return;
+      if (window.localStorage && window.localStorage.getItem('rata_lang_choice')) return;
+      var lang = ((navigator.language || navigator.userLanguage || '')).toLowerCase();
+      var target = null;
+      if (lang.indexOf('ja') !== 0) {
+        target = lang.indexOf('zh') === 0 ? '/zh-TW/' : '/en/';
+      }
+      if (target) location.replace(target + location.search);
+    } catch (e) {
+      /* ignore */
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About RATA — 一般社団法人リジェネラティブアートツーリズム協会</title>
 <meta name="description" content="一般社団法人リジェネラティブアートツーリズム協会（RATA）の団体概要。環境再生型アートを軸に、観光・自然環境・地域文化・教育・地方創生をつなぐ活動について。">
