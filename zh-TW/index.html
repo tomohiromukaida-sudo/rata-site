@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
+<!-- End cookieyes banner -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RATA Pass 先行登記 — Regenerative Art Tourism Association</title>
@@ -219,6 +222,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = '1702978657686286';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1702978657686286&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
 
@@ -429,13 +454,26 @@
     <div class="form-group">
       <label class="form-label">感興趣的內容（可多選）<span class="req">必填</span></label>
       <div class="check-group">
-        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>Ocean Gaia體驗</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>參與環境再生</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="digital_pass"><span>限定數位通行證</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>珊瑚成長記錄</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>教育內容</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="local"><span>對地方的貢獻</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>藝術家背景故事</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>想親眼看到Ocean Gaia</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>想看珊瑚與海洋的成長記錄</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>想支持環境再生藝術</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="tokunoshima_travel"><span>對德之島旅行感興趣</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>對教育/學習內容感興趣</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="corporate"><span>以企業/政府機構的角度關注此計畫</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>想了解藝術家與作品背景</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">想體驗的內容（可多選）<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">選填</span></label>
+      <div class="check-group">
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="snorkel"><span>浮潛</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="diving"><span>潛水</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="eco_education"><span>環境學習課程</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="artist_tour"><span>了解藝術家/製作背景的導覽行程</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="local_culture"><span>德之島飲食與文化體驗</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="corporate_program"><span>企業研習/考察行程</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="unsure"><span>還不確定</span></label>
       </div>
     </div>
 
@@ -551,7 +589,9 @@
     }
   });
 
-  document.getElementById('regForm').addEventListener('submit', function(e) {
+  const regForm = document.getElementById('regForm');
+  regForm.setAttribute('data-tracked-submit', 'true');
+  regForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -560,15 +600,23 @@
       if (key === 'interests[]') {
         payload.interests = payload.interests || [];
         payload.interests.push(value);
+      } else if (key === 'experience_interest[]') {
+        payload.experience_interest = payload.experience_interest || [];
+        payload.experience_interest.push(value);
       } else if (key === 'consent') {
         payload.consent = true;
       } else {
         payload[key] = value;
       }
     }
-    const params = new URLSearchParams(window.location.search);
-    payload.utm_source = params.get('utm_source') || '';
-    payload.utm_campaign = params.get('utm_campaign') || '';
+
+    if (window.RataTracking) {
+      Object.assign(payload, window.RataTracking.getFormPayloadFields());
+    } else {
+      const params = new URLSearchParams(window.location.search);
+      payload.utm_source = params.get('utm_source') || '';
+      payload.utm_campaign = params.get('utm_campaign') || '';
+    }
 
     fetch(form.action, {
       method: 'POST',
@@ -578,15 +626,25 @@
       .then(r => r.json())
       .then(res => {
         if (res.success) {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_submit', { form_name: 'regForm' });
+          }
           window.location.href = '/zh-TW/thanks.html';
         } else {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: res.message || '' });
+          }
           alert(res.message || '送出失敗，請再試一次。');
         }
       })
       .catch(() => {
+        if (window.RataTracking) {
+          window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: 'network_error' });
+        }
         alert('送出失敗，請確認網路連線後再試一次。');
       });
   });
 </script>
+<script src="../js/tracking.js"></script>
 </body>
 </html>

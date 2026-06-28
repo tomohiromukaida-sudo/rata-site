@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
+<!-- End cookieyes banner -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>感謝您的登記 — RATA</title>
@@ -28,11 +31,6 @@
     text-transform: uppercase;
   }
 </style>
-<script>
-  if (typeof gtag === 'function') {
-    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
-  }
-</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CVPHRXDS44"></script>
 <script>
@@ -41,6 +39,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = '1702978657686286';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1702978657686286&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
   <div class="icon"><img src="../images/thanks-hero.jpg" alt="Ocean Gaia 水中雕塑"></div>
@@ -50,5 +70,14 @@
     隨著正式推出日期接近，我們將優先為您提供最新消息。
   </p>
   <a href="/zh-TW/" class="btn">返回首頁</a>
+<script src="../js/tracking.js"></script>
+<script>
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { event_category: 'pre_registration' });
+  }
+  if (window.RataTracking) {
+    window.RataTracking.pushEvent('thank_you_view', {});
+  }
+</script>
 </body>
 </html>

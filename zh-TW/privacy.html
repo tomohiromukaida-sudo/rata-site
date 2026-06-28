@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
+<!-- End cookieyes banner -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>隱私政策 — RATA</title>
@@ -26,6 +29,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = '1702978657686286';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1702978657686286&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
   <h1>隱私政策</h1>
@@ -55,6 +80,9 @@
   <h2>4. 委託對象</h2>
   <p>為運營本站、發送郵件及保存資料，我們可能會使用外部服務（如伺服器業者等）。我們將要求委託對象進行適當之管理。</p>
 
+  <h2>4-2. 關於數據分析・追蹤工具</h2>
+  <p>本網站使用Google Analytics（GA4）、Google Tag Manager、Meta Pixel等數據分析・追蹤工具，以了解網站使用狀況並驗證廣告效果。這些工具會透過Cookie等技術收集頁面瀏覽情況及廣告來訪資訊（如UTM參數等）。所收集的資訊僅用於統計分析及廣告效果驗證，不會用於識別個人身分。</p>
+
   <h2>5. 保存期限</h2>
   <p>個人資訊將於達成使用目的所需之期間內保存，若登記者提出刪除請求，我們將迅速處理。</p>
 
@@ -69,5 +97,6 @@
   <p>本政策可能視需要進行修訂。修訂後之內容將於公布於本站時生效。</p>
 
   <a href="/zh-TW/" class="back">← 返回首頁</a>
+<script src="../js/tracking.js"></script>
 </body>
 </html>

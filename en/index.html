@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
+<!-- End cookieyes banner -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RATA Pass Pre-Registration — Regenerative Art Tourism Association</title>
@@ -219,6 +222,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = '1702978657686286';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1702978657686286&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
 
@@ -429,13 +454,26 @@
     <div class="form-group">
       <label class="form-label">What interests you (select all that apply)<span class="req">Required</span></label>
       <div class="check-group">
-        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>The Ocean Gaia experience</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>Participating in environmental regeneration</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="digital_pass"><span>The exclusive digital pass</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>Coral growth records</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>Educational content</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="local"><span>Contributing to the local community</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>The artist's background</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>I want to see Ocean Gaia in person</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>I want to see the coral and ocean growth records</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>I want to support regenerative environmental art</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="tokunoshima_travel"><span>I'm interested in traveling to Tokunoshima</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>I'm interested in educational content</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="corporate"><span>I'm interested as a company/local government initiative</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>I want to learn about the artist and the work's background</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Experiences you'd like (select all that apply)<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">Optional</span></label>
+      <div class="check-group">
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="snorkel"><span>Snorkeling</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="diving"><span>Diving</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="eco_education"><span>Environmental education program</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="artist_tour"><span>Tour about the artist / production background</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="local_culture"><span>Tokunoshima food and culture experience</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="corporate_program"><span>Corporate training / site visit program</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="unsure"><span>Not sure yet</span></label>
       </div>
     </div>
 
@@ -551,7 +589,9 @@
     }
   });
 
-  document.getElementById('regForm').addEventListener('submit', function(e) {
+  const regForm = document.getElementById('regForm');
+  regForm.setAttribute('data-tracked-submit', 'true');
+  regForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -560,15 +600,23 @@
       if (key === 'interests[]') {
         payload.interests = payload.interests || [];
         payload.interests.push(value);
+      } else if (key === 'experience_interest[]') {
+        payload.experience_interest = payload.experience_interest || [];
+        payload.experience_interest.push(value);
       } else if (key === 'consent') {
         payload.consent = true;
       } else {
         payload[key] = value;
       }
     }
-    const params = new URLSearchParams(window.location.search);
-    payload.utm_source = params.get('utm_source') || '';
-    payload.utm_campaign = params.get('utm_campaign') || '';
+
+    if (window.RataTracking) {
+      Object.assign(payload, window.RataTracking.getFormPayloadFields());
+    } else {
+      const params = new URLSearchParams(window.location.search);
+      payload.utm_source = params.get('utm_source') || '';
+      payload.utm_campaign = params.get('utm_campaign') || '';
+    }
 
     fetch(form.action, {
       method: 'POST',
@@ -578,15 +626,25 @@
       .then(r => r.json())
       .then(res => {
         if (res.success) {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_submit', { form_name: 'regForm' });
+          }
           window.location.href = '/en/thanks.html';
         } else {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: res.message || '' });
+          }
           alert(res.message || 'Submission failed. Please try again.');
         }
       })
       .catch(() => {
+        if (window.RataTracking) {
+          window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: 'network_error' });
+        }
         alert('Submission failed. Please check your connection and try again.');
       });
   });
 </script>
+<script src="../js/tracking.js"></script>
 </body>
 </html>

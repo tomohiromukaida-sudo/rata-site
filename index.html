@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b09bcca0bb7ff41a3f7a441c/script.js"></script>
+<!-- End cookieyes banner -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RATAパス 先行案内登録 — Regenerative Art Tourism Association</title>
@@ -219,6 +222,28 @@
   gtag('js', new Date());
   gtag('config', 'G-CVPHRXDS44');
 </script>
+<!-- Meta Pixel
+     配信開始前に PIXEL_ID を実際のMeta Pixel IDに差し替えること。
+     未設定のままだとfbqは無効化され、計測されない（エラーにはならない）。 -->
+<script>
+  var META_PIXEL_ID = '1702978657686286';
+  if (META_PIXEL_ID && META_PIXEL_ID.indexOf('REPLACE_WITH') === -1) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1702978657686286&ev=PageView&noscript=1" />
+</noscript>
 </head>
 <body>
 
@@ -430,13 +455,26 @@
     <div class="form-group">
       <label class="form-label">興味がある内容（複数選択可）<span class="req">必須</span></label>
       <div class="check-group">
-        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>Ocean Gaia体験</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>環境再生への参加</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="digital_pass"><span>限定デジタルパス</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>珊瑚の成長記録</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>教育コンテンツ</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="local"><span>地域貢献</span></label>
-        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>アーティスト背景</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="ocean_gaia"><span>Ocean Gaiaを実際に見たい</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="coral_record"><span>サンゴや海の成長記録を見たい</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="environment"><span>環境再生型アートを応援したい</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="tokunoshima_travel"><span>徳之島旅行に興味がある</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="education"><span>教育・学習コンテンツに興味がある</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="corporate"><span>企業/自治体の取り組みとして関心がある</span></label>
+        <label class="check-option"><input type="checkbox" name="interests[]" value="artist"><span>アーティストや作品背景を知りたい</span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">体験したい内容（複数選択可）<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
+      <div class="check-group">
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="snorkel"><span>シュノーケル</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="diving"><span>ダイビング</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="eco_education"><span>環境学習プログラム</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="artist_tour"><span>アーティスト/制作背景を学ぶツアー</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="local_culture"><span>徳之島の食・文化体験</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="corporate_program"><span>企業研修/視察プログラム</span></label>
+        <label class="check-option"><input type="checkbox" name="experience_interest[]" value="unsure"><span>まだわからない</span></label>
       </div>
     </div>
 
@@ -444,7 +482,7 @@
       <label class="form-label">想定購入価格<span style="color:var(--text-hint);font-size:9px;margin-left:4px;">任意</span></label>
       <select name="price_expectation" class="form-select">
         <option value="">選択してください</option>
-        <option value="free">無料なら欲しい</option>
+        <option value="free">無料なら登録したい</option>
         <option value="1000">1,000円程度</option>
         <option value="3000">3,000円程度</option>
         <option value="5000">5,000円程度</option>
@@ -553,7 +591,9 @@
     }
   });
 
-  document.getElementById('regForm').addEventListener('submit', function(e) {
+  const regForm = document.getElementById('regForm');
+  regForm.setAttribute('data-tracked-submit', 'true');
+  regForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -562,15 +602,23 @@
       if (key === 'interests[]') {
         payload.interests = payload.interests || [];
         payload.interests.push(value);
+      } else if (key === 'experience_interest[]') {
+        payload.experience_interest = payload.experience_interest || [];
+        payload.experience_interest.push(value);
       } else if (key === 'consent') {
         payload.consent = true;
       } else {
         payload[key] = value;
       }
     }
-    const params = new URLSearchParams(window.location.search);
-    payload.utm_source = params.get('utm_source') || '';
-    payload.utm_campaign = params.get('utm_campaign') || '';
+
+    if (window.RataTracking) {
+      Object.assign(payload, window.RataTracking.getFormPayloadFields());
+    } else {
+      const params = new URLSearchParams(window.location.search);
+      payload.utm_source = params.get('utm_source') || '';
+      payload.utm_campaign = params.get('utm_campaign') || '';
+    }
 
     fetch(form.action, {
       method: 'POST',
@@ -580,15 +628,25 @@
       .then(r => r.json())
       .then(res => {
         if (res.success) {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_submit', { form_name: 'regForm' });
+          }
           window.location.href = '/thanks.html';
         } else {
+          if (window.RataTracking) {
+            window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: res.message || '' });
+          }
           alert(res.message || '送信に失敗しました。もう一度お試しください。');
         }
       })
       .catch(() => {
+        if (window.RataTracking) {
+          window.RataTracking.pushEvent('form_error', { form_name: 'regForm', error_message: 'network_error' });
+        }
         alert('送信に失敗しました。通信環境をご確認の上、もう一度お試しください。');
       });
   });
 </script>
+<script src="js/tracking.js"></script>
 </body>
 </html>
